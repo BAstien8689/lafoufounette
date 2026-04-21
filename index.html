@@ -97,11 +97,12 @@ h1 { text-align: center; font-size: 40px; }
 
 .total-box{
   margin-top:10px;
-  padding:10px;
+  padding:12px;
   background: linear-gradient(90deg,#22c55e,#f59e0b,#ef4444);
   border-radius:10px;
   font-weight:bold;
   text-align:center;
+  cursor:pointer;
 }
 
 .small-note{
@@ -231,6 +232,12 @@ for(let i=1;i<=30;i++){
 
 document.getElementById('viewers').innerText = Math.floor(Math.random()*5)+3;
 updateTotal();
+
+// POPUP PAIEMENT FAKE
+const totalBox = document.getElementById('total');
+totalBox.addEventListener('click', ()=>{
+  alert("Votre reservation est payer et sera prelever sur votre mode de paiment habituelle");
+});
 </script>
 
 </body>
