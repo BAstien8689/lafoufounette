@@ -62,16 +62,6 @@ h1 { text-align: center; font-size: 40px; }
   margin-top:10px;
 }
 
-input, button {
-  padding: 8px;
-  border-radius: 8px;
-  border: none;
-  width: 100%;
-  margin-top:6px;
-}
-
-button { background:#e11d48; color:white; cursor:pointer; }
-
 .calendar {
   display:grid;
   grid-template-columns: repeat(7,1fr);
@@ -105,6 +95,15 @@ button { background:#e11d48; color:white; cursor:pointer; }
   100% { opacity: 0; transform: scale(0.8) translateY(90px) rotate(15deg); }
 }
 
+.total-box{
+  margin-top:10px;
+  padding:10px;
+  background: linear-gradient(90deg,#22c55e,#f59e0b,#ef4444);
+  border-radius:10px;
+  font-weight:bold;
+  text-align:center;
+}
+
 .small-note{
   font-size:10px;
   opacity:0.6;
@@ -135,9 +134,7 @@ button { background:#e11d48; color:white; cursor:pointer; }
 <div class="card">
   <h2>Description</h2>
   <p>
-    Cave voûtée immersive, ambiance rouge tamisée, expérience unique et décalée. 
-    Ici le MAP (plâtre) sublime les murs, le NazOpanier apporte une touche culinaire locale revisitée, 
-    et les macarons de Montmorillon viennent compléter une expérience sensorielle inoubliable.
+    Cave voûtée immersive, ambiance rouge tamisée, expérience unique et décalée. MAP (plâtre), NazOpanier culinaire revisité et macarons de Montmorillon composent l’expérience.
   </p>
 </div>
 
@@ -150,30 +147,15 @@ button { background:#e11d48; color:white; cursor:pointer; }
     <label><input type="checkbox" class="supp"> Sophie</label>
     <label><input type="checkbox" class="supp"> Pierre</label>
     <label><input type="checkbox" class="supp"> Maxence</label>
+    <label><input type="checkbox" class="supp" data-special="thibault"> Thibault</label>
   </div>
 </div>
 
 <div class="card">
-  <h2>Réservation</h2>
-  <p class="small-note">Sélectionnez vos dates (JJ/MM/AAAA)</p>
-  <input type="date" id="in">
-  <input type="date" id="out">
-  <p id="total">Total : 150€</p>
-  <button onclick="calcTotal()">Valider la sélection</button>
-</div>
-
-<div class="card" id="payment" style="display:none;">
-  <h2>Paiement</h2>
-  <input placeholder="Nom">
-  <input placeholder="Carte">
-  <input placeholder="Exp">
-  <input placeholder="CVV">
-  <button>Valider</button>
-</div>
-
-<div class="card">
-  <h2>Calendrier</h2>
+  <h2>📅 Sélectionnez vos dates</h2>
+  <p class="small-note">Cliquez sur les jours verts (orange = sélection)</p>
   <div class="calendar" id="calendar"></div>
+  <div class="total-box" id="total">Total : 150€</div>
 </div>
 
 <div class="card">
@@ -182,37 +164,40 @@ button { background:#e11d48; color:white; cursor:pointer; }
 </div>
 
 <div class="card small-note">
-  CONDITIONS GÉNÉRALES : toute réservation est soumise à l’humeur du lieu, aux vibrations cosmiques et à l’état émotionnel du MAP. Les macarons peuvent disparaître sans préavis. Aucun remboursement en cas de pleine lune.
+  CONDITIONS GÉNÉRALES : les réservations dépendent des vibrations du MAP, des macarons disponibles et de l’humeur du lieu. Toute incohérence cosmique peut entraîner une annulation automatique.
 </div>
 
 </div>
 
 <script>
 let base = 150;
-let selected = [];
 
 function float(text, x, y, color){
   const el = document.createElement("div");
   el.className = "float";
   el.innerText = text;
-  el.style.left = (x + 25) + "px";
+  el.style.left = (x + 20) + "px";
   el.style.top = y + "px";
   el.style.color = color;
   document.body.appendChild(el);
   setTimeout(()=>el.remove(),1100);
 }
 
-function calcTotal(){
+function updateTotal(){
   let supp = document.querySelectorAll('.supp:checked').length * 50;
   document.getElementById('total').innerText = "Total : " + (base + supp) + "€";
-  document.getElementById('payment').style.display = 'block';
 }
 
 const supps = document.querySelectorAll('.supp');
-
 supps.forEach(s => {
   s.addEventListener('click', (e) => {
     let rect = e.target.getBoundingClientRect();
+
+    // SPECIAL THIBAULT
+    if(e.target.dataset.special === "thibault" && e.target.checked){
+      float("on est pas des bêtes !", rect.left, rect.top, "#f97316");
+      return;
+    }
 
     if(e.target.checked){
       float("+50€", rect.left, rect.top, "#22c55e");
@@ -220,12 +205,10 @@ supps.forEach(s => {
       float("-50€", rect.left, rect.top, "#ef4444");
     }
 
-    let count = document.querySelectorAll('.supp:checked').length;
-    document.getElementById('total').innerText = "Total : " + (150 + count * 50) + "€";
+    updateTotal();
   });
 });
 
-// CALENDAR SELECTABLE
 const booked = [3,4,10,11,18,19,25];
 const cal = document.getElementById('calendar');
 
@@ -239,8 +222,8 @@ for(let i=1;i<=30;i++){
 
   d.addEventListener('click', ()=>{
     if(d.classList.contains('booked')) return;
-
     d.classList.toggle('selected');
+    updateTotal();
   });
 
   cal.appendChild(d);
