@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La Foufounette - Loveroom</title>
+<link rel="icon" href="favico.png">
 
 <style>
 body {
@@ -165,6 +166,22 @@ iframe { width: 100%; border-radius: 15px; }
   </div>
 
   <div class="card">
+    <h2>Suppléments</h2>
+    <label><input type="checkbox"> NazOpanier</label><br>
+    <label><input type="checkbox"> Macaron de Montmorillon</label><br>
+    <label><input type="checkbox"> JP</label><br>
+    <label><input type="checkbox"> Sophie</label><br>
+    <label><input type="checkbox"> Pierre</label><br>
+    <label><input type="checkbox"> Maxence</label>
+  </div>
+
+  <div class="card">
+    <h2>Pour prolonger l'expérience</h2>
+    <p>n'hésitez pas : Le Levrette Café</p>
+  </div>
+  </div>
+
+  <div class="card">
     <h2>Localisation</h2>
     <iframe src="https://maps.google.com/maps?q=35%20rue%20Robert%20Gaillard%20Châtellerault&output=embed" height="300"></iframe>
   </div>
@@ -185,7 +202,6 @@ function fakeSubmit(){
   alert("Erreur serveur... réessayez 😅");
 }
 
-// calendrier
 const booked=[3,4,10,11,18,19,25];
 const cal=document.getElementById("calendar");
 
@@ -200,7 +216,6 @@ for(let i=1;i<=30;i++){
   cal.appendChild(d);
 }
 
-// fake alert réservation
 const messages=[
 "⚡ Quelqu’un vient de réserver le 18/05",
 "⚡ Une réservation vient d’être confirmée",
@@ -217,7 +232,6 @@ function showToast(){
 
 setInterval(showToast,8000);
 
-// total calc
 const inD=document.getElementById("in");
 const outD=document.getElementById("out");
 const total=document.getElementById("total");
