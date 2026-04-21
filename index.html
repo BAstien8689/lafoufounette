@@ -19,18 +19,20 @@ body {
 h1 { text-align: center; font-size: 40px; }
 .subtitle { text-align: center; font-style: italic; margin-bottom: 10px; }
 
+.wrapper { position: relative; }
+
 .sticker {
   position: absolute;
-  top: 20px;
-  right: -40px;
+  top: 10px;
+  left: 10px;
+  transform: rotate(-5deg);
   background: #facc15;
   color: black;
-  padding: 10px 60px;
-  transform: rotate(20deg);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
   font-weight: bold;
 }
-
-.wrapper { position: relative; }
 
 .address { text-align:center; font-size:18px; margin-bottom:10px; }
 .live { text-align:center; margin-bottom:10px; font-size:14px; opacity:0.9; }
@@ -86,13 +88,12 @@ h1 { text-align: center; font-size: 40px; }
   font-weight: bold;
   pointer-events: none;
   animation: popFun 1.1s ease forwards;
-  text-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 
 @keyframes popFun {
-  0% { opacity: 0; transform: scale(0.3) translateY(0) rotate(-10deg); }
-  20% { opacity: 1; transform: scale(1.3) translateY(0) rotate(5deg); }
-  100% { opacity: 0; transform: scale(0.8) translateY(90px) rotate(15deg); }
+  0% { opacity: 0; transform: scale(0.3); }
+  20% { opacity: 1; transform: scale(1.3); }
+  100% { opacity: 0; transform: translateY(90px); }
 }
 
 .total-box{
@@ -111,6 +112,7 @@ h1 { text-align: center; font-size: 40px; }
   margin-top:10px;
 }
 
+/* MODAL */
 .modal {
   display:none;
   position:fixed;
@@ -129,7 +131,6 @@ h1 { text-align: center; font-size: 40px; }
   border-radius:12px;
   max-width:400px;
   text-align:center;
-  border:1px solid #f59e0b;
 }
 </style>
 </head>
@@ -139,7 +140,7 @@ h1 { text-align: center; font-size: 40px; }
 <div class="container">
 
 <div class="wrapper">
-  <div class="sticker">À partir de 150€ la nuit</div>
+  <div class="sticker">À partir de 150€</div>
   <h1>La Foufounette 💋</h1>
   <p class="subtitle">Expérience immersive 😏</p>
   <div class="address"><strong>35 rue Robert Gaillard, Châtellerault</strong></div>
@@ -153,49 +154,42 @@ h1 { text-align: center; font-size: 40px; }
 </div>
 
 <div class="card">
-  <h2>Description</h2>
-  <p>
-  Cave voûtée immersive aux murs en MAP (plâtre), offrant une atmosphère brute et authentique. 
-  L’éclairage rouge tamisé enveloppe l’espace dans une ambiance sensuelle et feutrée, créant 
-  une expérience à la fois intime, décalée et hors du temps. Chaque recoin a été pensé pour 
-  plonger les visiteurs dans un univers atypique, entre esthétique underground et confort 
-  surprenant.
+<h2>Description</h2>
+<p>
+Cave voûtée immersive aux murs en MAP (plâtre), offrant une atmosphère brute et authentique. 
+L’éclairage rouge tamisé enveloppe l’espace dans une ambiance sensuelle et feutrée, créant 
+une expérience à la fois intime, décalée et hors du temps.
 
-  <br><br>
+<br><br>
 
-  L’expérience se prolonge avec des touches originales et locales : le NazOpanier, spécialité 
-  culinaire revisitée pour l’occasion, ainsi que les célèbres macarons de Montmorillon, viennent 
-  parfaire ce moment unique. Un lieu singulier, à la frontière entre immersion, détente et second 
-  degré assumé.
-  </p>
+Chaque recoin a été pensé pour plonger les visiteurs dans un univers atypique, entre esthétique 
+underground et confort surprenant. L’expérience se prolonge avec des touches locales : le NazOpanier, 
+spécialité culinaire revisitée, ainsi que les macarons de Montmorillon.
+</p>
 </div>
 
 <div class="card">
-  <h2>Suppléments (+50€)</h2>
-  <div class="supp-list">
-    <label><input type="checkbox" class="supp"> NazOpanier</label>
-    <label><input type="checkbox" class="supp"> Macaron de Montmorillon</label>
-    <label><input type="checkbox" class="supp"> JP</label>
-    <label><input type="checkbox" class="supp"> Sophie</label>
-    <label><input type="checkbox" class="supp"> Pierre</label>
-    <label><input type="checkbox" class="supp"> Maxence</label>
-    <label><input type="checkbox" class="supp" data-special="thibault"> Thibault</label>
-  </div>
+<h2>Suppléments (+50€)</h2>
+<div class="supp-list">
+<label><input type="checkbox" class="supp"> NazOpanier</label>
+<label><input type="checkbox" class="supp"> Macaron de Montmorillon</label>
+<label><input type="checkbox" class="supp"> JP</label>
+<label><input type="checkbox" class="supp"> Sophie</label>
+<label><input type="checkbox" class="supp"> Pierre</label>
+<label><input type="checkbox" class="supp"> Maxence</label>
+<label><input type="checkbox" class="supp" data-special="thibault"> Thibault</label>
+</div>
 </div>
 
 <div class="card">
-  <h2>📅 Sélectionnez vos dates</h2>
-  <div class="calendar" id="calendar"></div>
-  <div class="total-box" id="total">Total : 150€</div>
+<h2>📅 Sélectionnez vos dates</h2>
+<div class="calendar" id="calendar"></div>
+<div class="total-box" id="total">Total : 150€</div>
 </div>
 
 <div class="card">
-  <h2>Le Levrette Café</h2>
-  <p>Pour prolonger l'expérience.</p>
-</div>
-
-<div class="card small-note">
-  CONDITIONS GÉNÉRALES : les réservations dépendent des vibrations du MAP, des macarons disponibles et de l’humeur du lieu.
+<h2>Le Levrette Café</h2>
+<p>Pour prolonger l'expérience.</p>
 </div>
 
 </div>
@@ -215,30 +209,32 @@ function float(text, x, y, color){
   const el = document.createElement("div");
   el.className = "float";
   el.innerText = text;
-  el.style.left = (x + 20) + "px";
+  el.style.left = x + "px";
   el.style.top = y + "px";
   el.style.color = color;
   document.body.appendChild(el);
-  setTimeout(()=>el.remove(),1100);
+  setTimeout(()=>el.remove(),1000);
 }
 
 function updateTotal(){
-  let nights = document.querySelectorAll('.selected').length;
-  if(nights === 0) nights = 1;
+  let nights = document.querySelectorAll('.selected').length || 1;
   let supp = document.querySelectorAll('.supp:checked').length * 50;
-  document.getElementById('total').innerText = "Total : " + (nights * base + supp) + "€";
+  document.getElementById('total').innerText =
+    "Total : " + (nights * base + supp) + "€";
 }
 
 document.querySelectorAll('.supp').forEach(s => {
   s.addEventListener('click', (e) => {
-    let rect = e.target.getBoundingClientRect();
+    let r = e.target.getBoundingClientRect();
+
     if(e.target.dataset.special === "thibault" && e.target.checked){
-      float("on est pas des bêtes !", rect.left, rect.top, "#f97316");
+      float("on est pas des bêtes !", r.left, r.top, "orange");
     } else if(e.target.checked){
-      float("+50€", rect.left, rect.top, "#22c55e");
+      float("+50€", r.left, r.top, "lime");
     } else {
-      float("-50€", rect.left, rect.top, "#ef4444");
+      float("-50€", r.left, r.top, "red");
     }
+
     updateTotal();
   });
 });
@@ -249,26 +245,26 @@ const cal = document.getElementById('calendar');
 for(let i=1;i<=30;i++){
   let d=document.createElement('div');
   d.className='day';
-  d.innerText=i + "/04/2026";
+  d.innerText=i;
 
   if(booked.includes(i)) d.classList.add('booked');
   else d.classList.add('free');
 
-  d.addEventListener('click', ()=>{
+  d.onclick=()=>{
     if(d.classList.contains('booked')) return;
     d.classList.toggle('selected');
     updateTotal();
-  });
+  };
 
   cal.appendChild(d);
 }
 
-document.getElementById('total').addEventListener('click', ()=>{
-  document.getElementById('modal').style.display = "flex";
-});
+document.getElementById('total').onclick=()=>{
+  document.getElementById('modal').style.display="flex";
+};
 
 function closeModal(){
-  document.getElementById('modal').style.display = "none";
+  document.getElementById('modal').style.display="none";
 }
 
 updateTotal();
