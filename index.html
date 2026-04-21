@@ -79,9 +79,16 @@ button { background:#e11d48; color:white; cursor:pointer; }
   font-size:12px;
 }
 
-.day { padding:6px; text-align:center; border-radius:6px; }
+.day {
+  padding:6px;
+  text-align:center;
+  border-radius:6px;
+  cursor:pointer;
+  user-select:none;
+}
 .free { background:#16a34a; }
 .booked { background:#991b1b; }
+.selected { background:#f59e0b !important; }
 
 .float {
   position: fixed;
@@ -96,6 +103,12 @@ button { background:#e11d48; color:white; cursor:pointer; }
   0% { opacity: 0; transform: scale(0.3) translateY(0) rotate(-10deg); }
   20% { opacity: 1; transform: scale(1.3) translateY(0) rotate(5deg); }
   100% { opacity: 0; transform: scale(0.8) translateY(90px) rotate(15deg); }
+}
+
+.small-note{
+  font-size:10px;
+  opacity:0.6;
+  margin-top:10px;
 }
 
 </style>
@@ -120,6 +133,15 @@ button { background:#e11d48; color:white; cursor:pointer; }
 </div>
 
 <div class="card">
+  <h2>Description</h2>
+  <p>
+    Cave voûtée immersive, ambiance rouge tamisée, expérience unique et décalée. 
+    Ici le MAP (plâtre) sublime les murs, le NazOpanier apporte une touche culinaire locale revisitée, 
+    et les macarons de Montmorillon viennent compléter une expérience sensorielle inoubliable.
+  </p>
+</div>
+
+<div class="card">
   <h2>Suppléments (+50€)</h2>
   <div class="supp-list">
     <label><input type="checkbox" class="supp"> NazOpanier</label>
@@ -133,10 +155,11 @@ button { background:#e11d48; color:white; cursor:pointer; }
 
 <div class="card">
   <h2>Réservation</h2>
+  <p class="small-note">Sélectionnez vos dates (JJ/MM/AAAA)</p>
   <input type="date" id="in">
   <input type="date" id="out">
   <p id="total">Total : 150€</p>
-  <button onclick="calcTotal()">Accéder au paiement</button>
+  <button onclick="calcTotal()">Valider la sélection</button>
 </div>
 
 <div class="card" id="payment" style="display:none;">
@@ -158,16 +181,21 @@ button { background:#e11d48; color:white; cursor:pointer; }
   <p>Pour prolonger l'expérience.</p>
 </div>
 
+<div class="card small-note">
+  CONDITIONS GÉNÉRALES : toute réservation est soumise à l’humeur du lieu, aux vibrations cosmiques et à l’état émotionnel du MAP. Les macarons peuvent disparaître sans préavis. Aucun remboursement en cas de pleine lune.
+</div>
+
 </div>
 
 <script>
 let base = 150;
+let selected = [];
 
 function float(text, x, y, color){
   const el = document.createElement("div");
   el.className = "float";
   el.innerText = text;
-  el.style.left = x + "px";
+  el.style.left = (x + 25) + "px";
   el.style.top = y + "px";
   el.style.color = color;
   document.body.appendChild(el);
@@ -187,9 +215,9 @@ supps.forEach(s => {
     let rect = e.target.getBoundingClientRect();
 
     if(e.target.checked){
-      float("+50€ 😏", rect.left, rect.top, "#22c55e");
+      float("+50€", rect.left, rect.top, "#22c55e");
     } else {
-      float("-50€ 😢", rect.left, rect.top, "#ef4444");
+      float("-50€", rect.left, rect.top, "#ef4444");
     }
 
     let count = document.querySelectorAll('.supp:checked').length;
@@ -197,14 +225,24 @@ supps.forEach(s => {
   });
 });
 
+// CALENDAR SELECTABLE
 const booked = [3,4,10,11,18,19,25];
 const cal = document.getElementById('calendar');
 
 for(let i=1;i<=30;i++){
   let d=document.createElement('div');
   d.className='day';
-  d.innerText=i;
-  d.classList.add(booked.includes(i)?'booked':'free');
+  d.innerText=i + "/04/2026";
+
+  if(booked.includes(i)) d.classList.add('booked');
+  else d.classList.add('free');
+
+  d.addEventListener('click', ()=>{
+    if(d.classList.contains('booked')) return;
+
+    d.classList.toggle('selected');
+  });
+
   cal.appendChild(d);
 }
 
