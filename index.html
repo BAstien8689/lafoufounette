@@ -164,7 +164,7 @@ h1 { text-align: center; font-size: 40px; }
 </div>
 
 <div class="card small-note">
-  CONDITIONS GÉNÉRALES : les réservations dépendent des vibrations du MAP, des macarons disponibles et de l’humeur du lieu. Toute incohérence cosmique peut entraîner une annulation automatique.
+  CONDITIONS GÉNÉRALES : les réservations dépendent des vibrations du MAP, des macarons disponibles et de l’humeur du lieu.
 </div>
 
 </div>
@@ -184,8 +184,12 @@ function float(text, x, y, color){
 }
 
 function updateTotal(){
+  let nights = document.querySelectorAll('.selected').length;
+  if(nights === 0) nights = 1;
+
   let supp = document.querySelectorAll('.supp:checked').length * 50;
-  document.getElementById('total').innerText = "Total : " + (base + supp) + "€";
+
+  document.getElementById('total').innerText = "Total : " + (nights * base + supp) + "€";
 }
 
 const supps = document.querySelectorAll('.supp');
@@ -193,13 +197,9 @@ supps.forEach(s => {
   s.addEventListener('click', (e) => {
     let rect = e.target.getBoundingClientRect();
 
-    // SPECIAL THIBAULT
     if(e.target.dataset.special === "thibault" && e.target.checked){
       float("on est pas des bêtes !", rect.left, rect.top, "#f97316");
-      return;
-    }
-
-    if(e.target.checked){
+    } else if(e.target.checked){
       float("+50€", rect.left, rect.top, "#22c55e");
     } else {
       float("-50€", rect.left, rect.top, "#ef4444");
@@ -230,6 +230,7 @@ for(let i=1;i<=30;i++){
 }
 
 document.getElementById('viewers').innerText = Math.floor(Math.random()*5)+3;
+updateTotal();
 </script>
 
 </body>
