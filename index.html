@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Foufounette - Loveroom</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(to bottom, #000, #5a0f2e);
+  color: white;
+}
+
+.container { max-width: 1000px; margin: auto; padding: 20px; }
+
+h1 { text-align: center; font-size: 40px; }
+.subtitle { text-align: center; font-style: italic; margin-bottom: 10px; }
+
+.badge-new{
+  display:inline-block;
+  background:#facc15;
+  color:black;
+  padding:5px 10px;
+  border-radius:8px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.address {
+  text-align:center;
+  font-size:18px;
+  margin-bottom:10px;
+}
+
+.live {
+  text-align:center;
+  margin-bottom:15px;
+  font-size:14px;
+  opacity:0.9;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.card {
+  background: rgba(0,0,0,0.6);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+input, button {
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  width: 100%;
+}
+
+button {
+  background: #e11d48;
+  color: white;
+  cursor: pointer;
+}
+
+iframe { width: 100%; border-radius: 15px; }
+
+.calendar {
+  display:grid;
+  grid-template-columns: repeat(7,1fr);
+  gap:5px;
+  margin-top:10px;
+}
+
+.day {
+  padding:10px;
+  text-align:center;
+  border-radius:8px;
+}
+
+.free { background:#16a34a; }
+.booked { background:#991b1b; }
+
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.85);
+  padding: 12px 20px;
+  border-radius: 10px;
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>La Foufounette 💋</h1>
+  <p class="subtitle">Une expérience insolite et romantique… ou presque 😏</p>
+
+  <div class="address">
+    <span class="badge-new">NOUVEAU</span><br>
+    <strong>35 rue Robert Gaillard, Châtellerault</strong>
+  </div>
+
+  <div class="live">
+    🔥 <span id="viewers">3</span> personnes regardent cette page en ce moment
+  </div>
+
+  <div class="gallery">
+    <img src="exterieur.jpg">
+    <img src="https://image.pollinations.ai/prompt/romantic%20vaulted%20cellar%20jacuzzi%20red%20light">
+    <img src="https://image.pollinations.ai/prompt/luxury%20loveroom%20bed%20candles%20red%20neon">
+  </div>
+
+  <div class="card">
+    <h2>Bienvenue à La Foufounette</h2>
+    <p>Cave voûtée immersive, ambiance rouge tamisée, expérience unique et décalée.</p>
+  </div>
+
+  <div class="card">
+    <h2>Réserver votre nuit</h2>
+
+    <label>Check-in :</label>
+    <input type="date" id="in">
+
+    <label>Check-out :</label>
+    <input type="date" id="out">
+
+    <p>150€ / nuit</p>
+    <p id="total">Total : 150€</p>
+
+    <button onclick="openPaymentForm()">Accéder au paiement</button>
+  </div>
+
+  <div class="card" id="payment" style="display:none;">
+    <h2>Paiement sécurisé</h2>
+
+    <input type="text" placeholder="Nom">
+    <input type="text" placeholder="Numéro carte">
+    <input type="text" placeholder="Expiration">
+    <input type="text" placeholder="CVV">
+
+    <button onclick="fakeSubmit()">Valider</button>
+  </div>
+
+  <div class="card">
+    <h2>Disponibilités</h2>
+    <div class="calendar" id="calendar"></div>
+  </div>
+
+  <div class="card">
+    <h2>Localisation</h2>
+    <iframe src="https://maps.google.com/maps?q=35%20rue%20Robert%20Gaillard%20Châtellerault&output=embed" height="300"></iframe>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+const viewers = document.getElementById("viewers");
+viewers.innerText = Math.floor(Math.random()*5)+3;
+
+function openPaymentForm(){
+  document.getElementById("payment").style.display="block";
+}
+
+function fakeSubmit(){
+  alert("Erreur serveur... réessayez 😅");
+}
+
+// calendrier
+const booked=[3,4,10,11,18,19,25];
+const cal=document.getElementById("calendar");
+
+for(let i=1;i<=30;i++){
+  let d=document.createElement("div");
+  d.className="day";
+  d.innerText=i;
+
+  if(booked.includes(i)) d.classList.add("booked");
+  else d.classList.add("free");
+
+  cal.appendChild(d);
+}
+
+// fake alert réservation
+const messages=[
+"⚡ Quelqu’un vient de réserver le 18/05",
+"⚡ Une réservation vient d’être confirmée",
+"⚡ Dernière chambre prise pour demain",
+"⚡ Une personne est en train de réserver"
+];
+
+function showToast(){
+  const t=document.getElementById("toast");
+  t.innerText=messages[Math.floor(Math.random()*messages.length)];
+  t.style.display="block";
+  setTimeout(()=>t.style.display="none",3000);
+}
+
+setInterval(showToast,8000);
+
+// total calc
+const inD=document.getElementById("in");
+const outD=document.getElementById("out");
+const total=document.getElementById("total");
+
+function calc(){
+  if(inD.value && outD.value){
+    let diff=(new Date(outD.value)-new Date(inD.value))/(1000*3600*24);
+    if(diff>0) total.innerText="Total : "+(diff*150)+"€";
+  }
+}
+
+inD.onchange=calc;
+outD.onchange=calc;
+</script>
+
+</body>
+</html>
