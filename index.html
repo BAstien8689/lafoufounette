@@ -33,7 +33,6 @@ h1 { text-align: center; font-size: 40px; }
 .wrapper { position: relative; }
 
 .address { text-align:center; font-size:18px; margin-bottom:10px; }
-
 .live { text-align:center; margin-bottom:10px; font-size:14px; opacity:0.9; }
 
 .gallery {
@@ -56,7 +55,6 @@ h1 { text-align: center; font-size: 40px; }
   margin-top: 12px;
 }
 
-/* SUPPLEMENTS COLUMN */
 .supp-list{
   display:flex;
   flex-direction:column;
@@ -85,31 +83,20 @@ button { background:#e11d48; color:white; cursor:pointer; }
 .free { background:#16a34a; }
 .booked { background:#991b1b; }
 
-/* FLOATING PRICE ANIMATION */
-.floating {
+.float {
   position: fixed;
-  left: 50%;
-  bottom: 40px;
-  transform: translateX(-50%);
-  background: black;
-  padding: 10px 15px;
-  border-radius: 10px;
-  opacity: 0;
-  animation: pop 1.2s ease forwards;
-  pointer-events:none;
-  font-weight:bold;
+  font-size: 26px;
+  font-weight: bold;
+  color: #22c55e;
+  pointer-events: none;
+  animation: popDown 1.2s ease forwards;
+  text-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 
-@keyframes pop {
-  0% { opacity:0; transform:translateX(-50%) translateY(20px); }
-  30% { opacity:1; }
-  100% { opacity:0; transform:translateX(-50%) translateY(-40px); }
-}
-
-.small-note{
-  font-size:10px;
-  opacity:0.6;
-  margin-top:10px;
+@keyframes popDown {
+  0% { opacity: 0; transform: translateY(0); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(90px); }
 }
 
 </style>
@@ -121,18 +108,16 @@ button { background:#e11d48; color:white; cursor:pointer; }
 
 <div class="wrapper">
   <div class="sticker">À partir de 150€ la nuit</div>
-
   <h1>La Foufounette 💋</h1>
   <p class="subtitle">Expérience immersive 😏</p>
-
   <div class="address"><strong>35 rue Robert Gaillard, Châtellerault</strong></div>
   <div class="live">🔥 <span id="viewers">3</span> personnes regardent</div>
 </div>
 
 <div class="gallery">
   <img src="exterieur.jpg">
-  <img src="https://image.pollinations.ai/prompt/romantic%20vaulted%20cellar%20jacuzzi">
-  <img src="https://image.pollinations.ai/prompt/luxury%20loveroom%20neon">
+  <img src="image1.jpg">
+  <img src="image2.jpg">
 </div>
 
 <div class="card">
@@ -161,7 +146,7 @@ button { background:#e11d48; color:white; cursor:pointer; }
   <input placeholder="Carte">
   <input placeholder="Exp">
   <input placeholder="CVV">
-  <button onclick="fakePay()">Valider</button>
+  <button>Valider</button>
 </div>
 
 <div class="card">
@@ -179,39 +164,38 @@ button { background:#e11d48; color:white; cursor:pointer; }
 <script>
 let base = 150;
 
-function showFloat(text){
-  const f=document.createElement('div');
-  f.className='floating';
-  f.innerText=text;
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),1200);
+function float(text, x, y){
+  const el = document.createElement("div");
+  el.className = "float";
+  el.innerText = text;
+  el.style.left = x + "px";
+  el.style.top = y + "px";
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),1200);
 }
 
 function calcTotal(){
   let supp = document.querySelectorAll('.supp:checked').length * 50;
-  let total = base + supp;
-  document.getElementById('total').innerText="Total : "+total+"€";
-  document.getElementById('payment').style.display='block';
+  document.getElementById('total').innerText = "Total : " + (base + supp) + "€";
+  document.getElementById('payment').style.display = 'block';
 }
 
-// +50 / -50 animation
-const supps=document.querySelectorAll('.supp');
+const supps = document.querySelectorAll('.supp');
 
-supps.forEach(s=>{
-  s.addEventListener('change',()=>{
-    if(s.checked){
-      showFloat("+50€");
-    }else{
-      showFloat("-50€");
-    }
-    let count=document.querySelectorAll('.supp:checked').length;
-    document.getElementById('total').innerText="Total : "+(150+count*50)+"€";
+supps.forEach(s => {
+  s.addEventListener('click', (e) => {
+    let rect = e.target.getBoundingClientRect();
+    let text = e.target.checked ? "+50€" : "-50€";
+    float(text, rect.left, rect.top);
+
+    let count = document.querySelectorAll('.supp:checked').length;
+    document.getElementById('total').innerText = "Total : " + (150 + count * 50) + "€";
   });
 });
 
-// fake calendar
-const booked=[3,4,10,11,18,19,25];
-const cal=document.getElementById('calendar');
+const booked = [3,4,10,11,18,19,25];
+const cal = document.getElementById('calendar');
+
 for(let i=1;i<=30;i++){
   let d=document.createElement('div');
   d.className='day';
@@ -220,9 +204,7 @@ for(let i=1;i<=30;i++){
   cal.appendChild(d);
 }
 
-// viewers
-document.getElementById('viewers').innerText=Math.floor(Math.random()*5)+3;
-
+document.getElementById('viewers').innerText = Math.floor(Math.random()*5)+3;
 </script>
 
 </body>
