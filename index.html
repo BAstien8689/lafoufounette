@@ -20,6 +20,7 @@ display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:10px;
 }
+
 .gallery img{
 width:100%;
 height:220px;
@@ -41,9 +42,14 @@ grid-template-columns:repeat(7,1fr);
 gap:5px;
 }
 
-.day{padding:8px;text-align:center;border-radius:6px;cursor:pointer;}
+.day{
+padding:8px;
+text-align:center;
+border-radius:6px;
+cursor:pointer;
+}
+
 .free{background:#a7f3d0;}
-.booked{background:#fca5a5;}
 .selected{background:#fbbf24;}
 
 .total{
@@ -56,55 +62,30 @@ font-weight:bold;
 cursor:pointer;
 }
 
-/* VOISINE WRAPPER */
+/* VOISINE (GLISSEMENT SIMPLE) */
 #voisineWrapper{
 position:fixed;
 right:-200px;
 bottom:0;
 width:160px;
-height:220px;
-z-index:10;
 transition:1s;
+z-index:10;
 }
 
-/* VOISINE */
+#voisineWrapper.show{
+right:10px;
+}
+
 #voisine{
 width:100%;
-position:absolute;
-bottom:0;
+display:block;
 }
 
-/* BRAS ANIMÉ */
-.arm{
-position:absolute;
-width:40px;
-height:40px;
-background:#f2d2b6;
-right:10px;
-top:70px;
-border-radius:50%;
-transform-origin:top center;
-animation:none;
-}
-
-/* animation bras */
-@keyframes shakeArm{
-0%{transform:rotate(0deg);}
-25%{transform:rotate(20deg);}
-50%{transform:rotate(-20deg);}
-75%{transform:rotate(15deg);}
-100%{transform:rotate(0deg);}
-}
-
-.shake{
-animation:shakeArm 0.6s infinite;
-}
-
-/* BULLE */
-.bubble{
+/* BULLE ATTACHÉE */
+#voisineBubble{
 position:absolute;
 top:-60px;
-left:0;
+left:10px;
 background:white;
 color:black;
 padding:8px 10px;
@@ -152,6 +133,13 @@ border-radius:12px;
 text-align:center;
 max-width:350px;
 }
+
+.small{
+font-size:10px;
+opacity:0.7;
+line-height:1.4;
+margin-top:15px;
+}
 </style>
 </head>
 
@@ -171,14 +159,16 @@ max-width:350px;
 
 <div class="card">
 <h2>Description</h2>
-<p>Un lieu où la logique a quitté le chat depuis longtemps.</p>
+<p>
+Un lieu où la logique a pris un congé illimité.
+</p>
 </div>
 
 <div class="card">
 <h2>Prestations incluses</h2>
 <ul>
 <li>🍲 Cuisine chez Hémon</li>
-<li>🍄 Champignons imprévisibles</li>
+<li>🍄 Champignons aléatoires</li>
 <li>🔧 Plomberie immersive</li>
 <li>🎯 Biathlon VR</li>
 <li>🍺 Bière illimitée</li>
@@ -189,8 +179,8 @@ max-width:350px;
 <h2>Avis ⭐⭐⭐⭐⭐</h2>
 <p><strong>Jean-Michel</strong> — “Plombier malgré moi.”</p>
 <p><strong>Sophie</strong> — “Le biquet m’a jugée.”</p>
-<p><strong>Kevin</strong> — “Bière = bonheur.”</p>
-<p><strong>Monique</strong> — “J’ai rien compris.”</p>
+<p><strong>Kevin</strong> — “Bière = parfait.”</p>
+<p><strong>Monique</strong> — “Je comprends rien.”</p>
 <p><strong>Thibault</strong> — “On est pas des bêtes !”</p>
 <p><strong>Didier</strong> — “Expérience étrange.”</p>
 </div>
@@ -201,12 +191,30 @@ max-width:350px;
 <div id="total" class="total">Total : 80€</div>
 </div>
 
+<div class="card">
+<h2>💋 Prolonger l’expérience</h2>
+<a href="loveroom.html" style="display:inline-block;padding:10px 15px;background:#e8d5c4;border-radius:8px;text-decoration:none;color:black;">
+Accéder à la Loveroom 💋
+</a>
+</div>
+
+<div class="card small">
+CONDITIONS GÉNÉRALES :  
+Le biquet est autorité suprême.  
+Les réservations peuvent être modifiées sans logique.  
+Les champignons influencent la perception du réel.  
+La plomberie immersive peut inclure des erreurs pédagogiques.  
+La voisine peut apparaître sans raison.  
+Toute tentative de compréhension entraîne une anomalie narrative.  
+Le Wi-Fi fonctionne quand il veut.  
+</div>
+
 </div>
 
 <!-- VOISINE -->
 <div id="voisineWrapper">
   <img id="voisine" src="">
-  <div class="arm"></div>
+  <div id="voisineBubble"></div>
 </div>
 
 <!-- MODAL -->
@@ -229,10 +237,11 @@ const phrases=[
 "encore moi",
 "je passe juste",
 "j'arrive sans prévenir",
-"je surveille"
+"je surveille",
+"je comprends rien"
 ];
 
-/* calendrier simple */
+/* calendrier */
 for(let i=1;i<=30;i++){
 let d=document.createElement("div");
 d.className="day free";
@@ -254,35 +263,20 @@ total.onclick=()=>modal.style.display="flex";
 
 viewers.innerText=Math.floor(Math.random()*5)+3;
 
-/* VOISINE */
+/* VOISINE SIMPLE */
 function spawnVoisine(){
 
 let w=document.getElementById("voisineWrapper");
 let v=document.getElementById("voisine");
-let arm=document.querySelector(".arm");
+let b=document.getElementById("voisineBubble");
 
 v.src=voisins[Math.floor(Math.random()*voisins.length)];
-
-/* apparition */
-w.style.right="10px";
-
-/* bulle */
-let b=document.createElement("div");
-b.className="bubble";
 b.innerText=phrases[Math.floor(Math.random()*phrases.length)];
-w.appendChild(b);
 
-/* 🖐️ animation bras */
-arm.classList.add("shake");
+w.classList.add("show");
 
 setTimeout(()=>{
-arm.classList.remove("shake");
-},3000);
-
-/* disparition */
-setTimeout(()=>{
-w.style.right="-200px";
-b.remove();
+w.classList.remove("show");
 },3000);
 }
 
@@ -293,7 +287,7 @@ spawnVoisine();
 }
 },4000);
 
-/* réservations fake */
+/* fake réservation */
 setInterval(()=>{
 if(Math.random()>0.85){
 let f=document.createElement("div");
@@ -304,6 +298,7 @@ setTimeout(()=>f.remove(),4000);
 }
 },6000);
 
+update();
 </script>
 
 </body>
