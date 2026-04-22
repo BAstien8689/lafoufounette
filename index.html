@@ -10,33 +10,128 @@
 <style>
 body {margin:0;font-family:Arial;background:#f5efe6;}
 .container{max-width:1000px;margin:auto;padding:20px;}
+
 h1{text-align:center;}
 .subtitle{text-align:center;color:#666;}
 .badge{text-align:center;font-size:14px;margin-bottom:10px;}
 
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;}
-.gallery img{width:100%;height:220px;object-fit:cover;border-radius:12px;}
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:10px;
+}
+.gallery img{
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:12px;
+}
 
-.card{background:white;padding:15px;border-radius:12px;margin-top:15px;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+.card{
+background:white;
+padding:15px;
+border-radius:12px;
+margin-top:15px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
 
-.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
-.day{padding:8px;text-align:center;border-radius:6px;cursor:pointer;}
+.calendar{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:5px;
+}
+
+.day{
+padding:8px;
+text-align:center;
+border-radius:6px;
+cursor:pointer;
+}
+
 .free{background:#a7f3d0;}
 .booked{background:#fca5a5;}
 .selected{background:#fbbf24;}
 
-.total{margin-top:10px;padding:12px;background:#e8d5c4;border-radius:8px;text-align:center;font-weight:bold;cursor:pointer;}
+.total{
+margin-top:10px;
+padding:12px;
+background:#e8d5c4;
+border-radius:8px;
+text-align:center;
+font-weight:bold;
+cursor:pointer;
+}
 
-.small{font-size:10px;opacity:0.7;margin-top:15px;line-height:1.4;}
+.small{
+font-size:10px;
+opacity:0.7;
+margin-top:15px;
+line-height:1.4;
+}
 
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;}
-.modal-box{background:#fff;padding:20px;border-radius:12px;max-width:350px;text-align:center;}
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.7);
+align-items:center;
+justify-content:center;
+}
 
-.flash{position:fixed;bottom:20px;left:20px;background:black;color:white;padding:10px;border-radius:8px;opacity:0;animation:fade 4s;}
-@keyframes fade{0%{opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{opacity:0;}}
+.modal-box{
+background:#fff;
+padding:20px;
+border-radius:12px;
+max-width:350px;
+text-align:center;
+}
 
-.voisine{position:fixed;right:-200px;bottom:0;width:150px;transition:1s;}
+/* FLASH */
+.flash{
+position:fixed;
+bottom:20px;
+left:20px;
+background:black;
+color:white;
+padding:10px;
+border-radius:8px;
+opacity:0;
+animation:fade 4s;
+}
+
+@keyframes fade{
+0%{opacity:0;}
+20%{opacity:1;}
+80%{opacity:1;}
+100%{opacity:0;}
+}
+
+/* VOISINE */
+.voisine{
+position:fixed;
+right:-200px;
+bottom:0;
+width:150px;
+transition:1s;
+z-index:10;
+}
 .voisine.show{right:10px;}
+
+/* BULLE */
+.bubble{
+position:fixed;
+right:170px;
+bottom:160px;
+background:white;
+color:black;
+padding:8px 10px;
+border-radius:10px;
+font-size:12px;
+box-shadow:0 2px 6px rgba(0,0,0,0.3);
+z-index:11;
+}
 </style>
 </head>
 
@@ -46,7 +141,7 @@ h1{text-align:center;}
 
 <h1>Chez mon biquet 🐐</h1>
 <p class="subtitle">Séjour rustique, authentique et légèrement incontrôlable</p>
-<p class="badge">🔥 Dernière dispo aujourd’hui • 👀 <span id="viewers">3</span> personnes regardent</p>
+<p class="badge">🔥 Dernière dispo • 👀 <span id="viewers">3</span> personnes regardent</p>
 
 <div class="gallery">
 <img src="biquet1.jpg">
@@ -57,8 +152,8 @@ h1{text-align:center;}
 <div class="card">
 <h2>Description</h2>
 <p>
-Lieu improbable où chaque séjour peut changer votre vie ou votre plomberie. 
-Ambiance chaleureuse, logique absente, souvenirs garantis.
+Bienvenue chez mon biquet : un lieu où la logique prend des vacances prolongées.
+Chaque séjour est différent, parfois calme, parfois… expérimental.
 </p>
 </div>
 
@@ -66,42 +161,23 @@ Ambiance chaleureuse, logique absente, souvenirs garantis.
 <h2>Prestations incluses</h2>
 <ul>
 <li>🍲 Cuisine chez Hémon à volonté</li>
-<li>🍄 Cueillette de champignons (selon survie)</li>
+<li>🍄 Cueillette de champignons (option survie)</li>
 <li>🔧 Cours de plomberie immersifs</li>
-<li>🎯 Biathlon en réalité virtuelle</li>
-<li>🍺 Tireuse à bière à volonté</li>
-<li>🍷 Dégustation de vin approximative</li>
+<li>🎯 Biathlon VR</li>
+<li>🍺 Tireuse à bière illimitée</li>
+<li>🍷 Dégustation de vin intuitive</li>
 <li>🐐 Interaction avec le biquet</li>
 </ul>
 </div>
 
 <div class="card">
-<h2>Votre hôte</h2>
-<p><strong>Biquet 🐐</strong> ⭐ Superhost depuis 1872</p>
-<p>Taux de réponse : 102% • Temps : avant la question</p>
-</div>
-
-<div class="card">
 <h2>Avis ⭐⭐⭐⭐⭐</h2>
-
-<p><strong>Jean-Michel</strong> ⭐⭐⭐⭐⭐<br>
-“Je suis venu pour dormir, je suis reparti plombier.”</p>
-
-<p><strong>Sophie</strong> ⭐⭐⭐⭐⭐<br>
-“Le biquet m’a jugée mais avec respect.”</p>
-
-<p><strong>Kevin</strong> ⭐⭐⭐⭐⭐<br>
-“Il y avait de la bière. J’ai compris.”</p>
-
-<p><strong>Monique</strong> ⭐⭐⭐⭐⭐<br>
-“Je ne comprends toujours pas mais j’ai réservé à nouveau.”</p>
-
-<p><strong>Thibault</strong> ⭐⭐⭐⭐⭐<br>
-“On est pas des bêtes !”</p>
-
-<p><strong>Didier</strong> ⭐⭐⭐⭐⭐<br>
-“Expérience mystique, j’ai perdu 2 heures de mémoire.”</p>
-
+<p><strong>Jean-Michel</strong> — “Je suis venu dormir, je suis parti plombier.”</p>
+<p><strong>Sophie</strong> — “Le biquet m’a jugée mais gentiment.”</p>
+<p><strong>Kevin</strong> — “Il y avait de la bière donc 5 étoiles.”</p>
+<p><strong>Monique</strong> — “Je ne comprends pas mais j’ai repris.”</p>
+<p><strong>Thibault</strong> — “On est pas des bêtes !”</p>
+<p><strong>Didier</strong> — “J’ai perdu 2h de réalité.”</p>
 </div>
 
 <div class="card">
@@ -112,22 +188,19 @@ Ambiance chaleureuse, logique absente, souvenirs garantis.
 
 <div class="card">
 <h2>⚠️ Attention</h2>
-<p><strong>La voisine peut arriver à tout moment.</strong> Elle ne frappe pas.</p>
+<p><strong>La voisine peut apparaître à tout moment.</strong></p>
 </div>
 
 <div class="card small">
 CONDITIONS GÉNÉRALES :  
-Toute réservation implique l’acceptation implicite du biquet en tant qu’entité décisionnaire principale.  
-Le biquet peut modifier, annuler, déplacer ou ignorer une réservation selon son humeur, la météo ou des facteurs inconnus.  
-Les champignons peuvent être comestibles, décoratifs ou philosophiques.  
-Les activités proposées peuvent être réelles, virtuelles ou imaginaires.  
-Le séjour peut évoluer en formation plomberie sans avertissement préalable.  
-Le Wi-Fi fonctionne uniquement lorsqu’il n’est pas nécessaire.  
-Toute tentative de compréhension logique entraîne une perte immédiate de cohérence.  
-Le temps peut s’écouler différemment sur place.  
-La voisine peut apparaître sans raison, sans prévenir et sans objectif clair.  
-Le biquet n’est responsable d’aucune conséquence physique, mentale ou existentielle.  
-Toute réservation est considérée comme définitive, même si elle n’a jamais existé.  
+Le biquet est décisionnaire absolu.  
+La réalité peut être modifiée sans préavis.  
+Les champignons peuvent influencer vos décisions.  
+Le Wi-Fi fonctionne uniquement quand il est inutile.  
+Toute logique est automatiquement invalidée à l’arrivée.  
+La voisine peut intervenir, commenter ou observer sans autorisation.  
+Les réservations peuvent être annulées par instinct caprin.  
+Toute tentative de compréhension entraîne un bug narratif.  
 </div>
 
 </div>
@@ -147,13 +220,9 @@ Toute réservation est considérée comme définitive, même si elle n’a jamai
 <script>
 let base=80;
 
-function update(){
-let nights=document.querySelectorAll('.selected').length;
-if(nights==0)nights=1;
-total.innerText="Total : "+(nights*base)+"€";
-}
-
+/* calendrier */
 const booked=[2,5,10];
+
 for(let i=1;i<=30;i++){
 let d=document.createElement("div");
 d.className="day";
@@ -171,6 +240,12 @@ update();
 calendar.appendChild(d);
 }
 
+function update(){
+let nights=document.querySelectorAll('.selected').length;
+if(nights==0)nights=1;
+total.innerText="Total : "+(nights*base)+"€";
+}
+
 total.onclick=()=>{
 modal.style.display="flex";
 }
@@ -179,29 +254,63 @@ function closeModal(){
 modal.style.display="none";
 }
 
+/* visiteurs */
 viewers.innerText=Math.floor(Math.random()*5)+3;
 
-/* fake réservation */
-setInterval(()=>{
+/* ⚡ réservation rare (max ~1/min) */
+function reservationLoop(){
+let delay = Math.random()*60000 + 30000;
+
+setTimeout(()=>{
 let f=document.createElement("div");
 f.className="flash";
 f.innerText="⚡ Quelqu’un vient de réserver !";
 document.body.appendChild(f);
 setTimeout(()=>f.remove(),4000);
-},8000);
 
-/* VOISINE RANDOM IMAGE */
-const voisins = ["voisine.png","voisine1.png","voisine2.png","voisine3.png"];
+reservationLoop();
+},delay);
+}
+reservationLoop();
 
-setInterval(()=>{
-if(Math.random()>0.7){
-let v = document.getElementById("voisine");
-v.src = voisins[Math.floor(Math.random()*voisins.length)];
+/* 👵 VOISINE + BULLE */
+const voisins=["voisine.png","voisine1.png","voisine2.png","voisine3.png"];
+
+const phrases=[
+"c'est la voisine",
+"encore moi",
+"j'arrive sans prévenir",
+"je passe juste",
+"vous faites quoi ici ?",
+"je surveille",
+"je reviens",
+"je comprends rien mais bon",
+"c’est normal ça ?"
+];
+
+function spawnVoisine(){
+let v=document.getElementById("voisine");
+v.src=voisins[Math.floor(Math.random()*voisins.length)];
 v.classList.add("show");
 
-setTimeout(()=>v.classList.remove("show"),3000);
+let b=document.createElement("div");
+b.className="bubble";
+b.innerText=phrases[Math.floor(Math.random()*phrases.length)];
+
+document.body.appendChild(b);
+
+setTimeout(()=>{
+v.classList.remove("show");
+b.remove();
+},3000);
 }
-},5000);
+
+/* fréquence augmentée */
+setInterval(()=>{
+if(Math.random()>0.5){
+spawnVoisine();
+}
+},3500);
 
 update();
 </script>
