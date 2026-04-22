@@ -5,123 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chez mon biquet</title>
 
-<!-- FAVICON -->
 <link rel="icon" href="biquetfav.png?v=2">
 
 <style>
-body {
-  margin:0;
-  font-family:Arial;
-  background:#f5efe6;
-}
-
-.container { max-width:1000px; margin:auto; padding:20px; }
-
+body {margin:0;font-family:Arial;background:#f5efe6;}
+.container{max-width:1000px;margin:auto;padding:20px;}
 h1{text-align:center;}
 .subtitle{text-align:center;color:#666;}
-
 .badge{text-align:center;font-size:14px;margin-bottom:10px;}
 
-.gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:10px;
-}
-.gallery img{
-width:100%;
-height:220px;
-object-fit:cover;
-border-radius:12px;
-}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;}
+.gallery img{width:100%;height:220px;object-fit:cover;border-radius:12px;}
 
-.card{
-background:white;
-padding:15px;
-border-radius:12px;
-margin-top:15px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
+.card{background:white;padding:15px;border-radius:12px;margin-top:15px;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
 
-.calendar{
-display:grid;
-grid-template-columns:repeat(7,1fr);
-gap:5px;
-}
-
-.day{
-padding:8px;
-text-align:center;
-border-radius:6px;
-cursor:pointer;
-}
-
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+.day{padding:8px;text-align:center;border-radius:6px;cursor:pointer;}
 .free{background:#a7f3d0;}
 .booked{background:#fca5a5;}
 .selected{background:#fbbf24;}
 
-.total{
-margin-top:10px;
-padding:12px;
-background:#e8d5c4;
-border-radius:8px;
-text-align:center;
-font-weight:bold;
-cursor:pointer;
-}
+.total{margin-top:10px;padding:12px;background:#e8d5c4;border-radius:8px;text-align:center;font-weight:bold;cursor:pointer;}
 
-.small{
-font-size:11px;
-opacity:0.6;
-margin-top:15px;
-}
+.small{font-size:10px;opacity:0.7;margin-top:15px;line-height:1.4;}
 
-/* MODAL */
-.modal{
-display:none;
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.7);
-align-items:center;
-justify-content:center;
-}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;}
+.modal-box{background:#fff;padding:20px;border-radius:12px;max-width:350px;text-align:center;}
 
-.modal-box{
-background:#fff;
-padding:20px;
-border-radius:12px;
-max-width:350px;
-text-align:center;
-}
+.flash{position:fixed;bottom:20px;left:20px;background:black;color:white;padding:10px;border-radius:8px;opacity:0;animation:fade 4s;}
+@keyframes fade{0%{opacity:0;}20%{opacity:1;}80%{opacity:1;}100%{opacity:0;}}
 
-/* POPUP LIVE */
-.flash{
-position:fixed;
-bottom:20px;
-left:20px;
-background:black;
-color:white;
-padding:10px;
-border-radius:8px;
-opacity:0;
-animation:fade 4s;
-}
-
-@keyframes fade{
-0%{opacity:0;}
-20%{opacity:1;}
-80%{opacity:1;}
-100%{opacity:0;}
-}
-
-/* VOISINE */
-.voisine{
-position:fixed;
-right:-200px;
-bottom:0;
-width:150px;
-transition:1s;
-}
+.voisine{position:fixed;right:-200px;bottom:0;width:150px;transition:1s;}
 .voisine.show{right:10px;}
 </style>
 </head>
@@ -143,22 +57,21 @@ transition:1s;
 <div class="card">
 <h2>Description</h2>
 <p>
-Bienvenue chez mon biquet, un lieu chaleureux aux tons crème où le charme de la campagne rencontre 
-des expériences totalement imprévisibles. Ici, chaque séjour est unique : parfois reposant, parfois 
-incompréhensible, mais toujours mémorable. Le biquet veille (plus ou moins).
+Lieu improbable où chaque séjour peut changer votre vie ou votre plomberie. 
+Ambiance chaleureuse, logique absente, souvenirs garantis.
 </p>
 </div>
 
 <div class="card">
 <h2>Prestations incluses</h2>
 <ul>
-<li>🍲 Cuisine chez Hémon à volonté (résultat variable)</li>
+<li>🍲 Cuisine chez Hémon à volonté</li>
 <li>🍄 Cueillette de champignons (selon survie)</li>
 <li>🔧 Cours de plomberie immersifs</li>
 <li>🎯 Biathlon en réalité virtuelle</li>
 <li>🍺 Tireuse à bière à volonté</li>
 <li>🍷 Dégustation de vin approximative</li>
-<li>🐐 Interaction avec le biquet (non contractuelle)</li>
+<li>🐐 Interaction avec le biquet</li>
 </ul>
 </div>
 
@@ -170,9 +83,25 @@ incompréhensible, mais toujours mémorable. Le biquet veille (plus ou moins).
 
 <div class="card">
 <h2>Avis ⭐⭐⭐⭐⭐</h2>
-<p>“Je suis venu dormir, je suis reparti plombier.”</p>
-<p>“Le biquet m’a jugé mais j’ai accepté.”</p>
-<p>“Expérience floue mais intense.”</p>
+
+<p><strong>Jean-Michel</strong> ⭐⭐⭐⭐⭐<br>
+“Je suis venu pour dormir, je suis reparti plombier.”</p>
+
+<p><strong>Sophie</strong> ⭐⭐⭐⭐⭐<br>
+“Le biquet m’a jugée mais avec respect.”</p>
+
+<p><strong>Kevin</strong> ⭐⭐⭐⭐⭐<br>
+“Il y avait de la bière. J’ai compris.”</p>
+
+<p><strong>Monique</strong> ⭐⭐⭐⭐⭐<br>
+“Je ne comprends toujours pas mais j’ai réservé à nouveau.”</p>
+
+<p><strong>Thibault</strong> ⭐⭐⭐⭐⭐<br>
+“On est pas des bêtes !”</p>
+
+<p><strong>Didier</strong> ⭐⭐⭐⭐⭐<br>
+“Expérience mystique, j’ai perdu 2 heures de mémoire.”</p>
+
 </div>
 
 <div class="card">
@@ -183,11 +112,22 @@ incompréhensible, mais toujours mémorable. Le biquet veille (plus ou moins).
 
 <div class="card">
 <h2>⚠️ Attention</h2>
-<p><strong>La voisine peut arriver à tout moment.</strong></p>
+<p><strong>La voisine peut arriver à tout moment.</strong> Elle ne frappe pas.</p>
 </div>
 
 <div class="card small">
-CONDITIONS : Le biquet décide de tout. La réalité peut varier. Toute logique est suspendue.
+CONDITIONS GÉNÉRALES :  
+Toute réservation implique l’acceptation implicite du biquet en tant qu’entité décisionnaire principale.  
+Le biquet peut modifier, annuler, déplacer ou ignorer une réservation selon son humeur, la météo ou des facteurs inconnus.  
+Les champignons peuvent être comestibles, décoratifs ou philosophiques.  
+Les activités proposées peuvent être réelles, virtuelles ou imaginaires.  
+Le séjour peut évoluer en formation plomberie sans avertissement préalable.  
+Le Wi-Fi fonctionne uniquement lorsqu’il n’est pas nécessaire.  
+Toute tentative de compréhension logique entraîne une perte immédiate de cohérence.  
+Le temps peut s’écouler différemment sur place.  
+La voisine peut apparaître sans raison, sans prévenir et sans objectif clair.  
+Le biquet n’est responsable d’aucune conséquence physique, mentale ou existentielle.  
+Toute réservation est considérée comme définitive, même si elle n’a jamais existé.  
 </div>
 
 </div>
@@ -202,7 +142,7 @@ CONDITIONS : Le biquet décide de tout. La réalité peut varier. Toute logique 
 </div>
 
 <!-- VOISINE -->
-<img src="voisine.png" class="voisine" id="voisine">
+<img id="voisine" class="voisine">
 
 <script>
 let base=80;
@@ -239,7 +179,6 @@ function closeModal(){
 modal.style.display="none";
 }
 
-/* visiteurs */
 viewers.innerText=Math.floor(Math.random()*5)+3;
 
 /* fake réservation */
@@ -251,11 +190,16 @@ document.body.appendChild(f);
 setTimeout(()=>f.remove(),4000);
 },8000);
 
-/* voisine */
+/* VOISINE RANDOM IMAGE */
+const voisins = ["voisine.png","voisine1.png","voisine2.png","voisine3.png"];
+
 setInterval(()=>{
 if(Math.random()>0.7){
-voisine.classList.add("show");
-setTimeout(()=>voisine.classList.remove("show"),3000);
+let v = document.getElementById("voisine");
+v.src = voisins[Math.floor(Math.random()*voisins.length)];
+v.classList.add("show");
+
+setTimeout(()=>v.classList.remove("show"),3000);
 }
 },5000);
 
