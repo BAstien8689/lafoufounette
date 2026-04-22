@@ -20,6 +20,7 @@ display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:10px;
 }
+
 .gallery img{
 width:100%;
 height:220px;
@@ -79,7 +80,6 @@ width:100%;
 display:block;
 }
 
-/* BULLE */
 #voisineBubble{
 position:absolute;
 top:-60px;
@@ -93,46 +93,7 @@ box-shadow:0 2px 6px rgba(0,0,0,0.3);
 max-width:140px;
 }
 
-/* FLASH */
-.flash{
-position:fixed;
-bottom:20px;
-left:20px;
-background:black;
-color:white;
-padding:10px;
-border-radius:8px;
-animation:fade 4s;
-}
-
-@keyframes fade{
-0%{opacity:0;}
-20%{opacity:1;}
-80%{opacity:1;}
-100%{opacity:0;}
-}
-
-/* MODAL */
-.modal{
-display:none;
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.7);
-align-items:center;
-justify-content:center;
-z-index:999;
-}
-
-.modal-box{
-background:#fff;
-padding:20px;
-border-radius:12px;
-text-align:center;
-max-width:350px;
-}
-
-/* POPUP VOISINE */
+/* POPUP */
 #voisinePopup{
 position:fixed;
 top:0;left:0;
@@ -153,6 +114,43 @@ border-radius:12px;
 max-width:320px;
 }
 
+.flash{
+position:fixed;
+bottom:20px;
+left:20px;
+background:black;
+color:white;
+padding:10px;
+border-radius:8px;
+animation:fade 4s;
+}
+
+@keyframes fade{
+0%{opacity:0;}
+20%{opacity:1;}
+80%{opacity:1;}
+100%{opacity:0;}
+}
+
+.modal{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.7);
+align-items:center;
+justify-content:center;
+z-index:999;
+}
+
+.modal-box{
+background:#fff;
+padding:20px;
+border-radius:12px;
+text-align:center;
+max-width:350px;
+}
+
 .small{
 font-size:10px;
 opacity:0.7;
@@ -164,7 +162,7 @@ margin-top:15px;
 
 <body>
 
-<!-- 👵 POPUP VOISINE -->
+<!-- POPUP VOISINE -->
 <div id="voisinePopup">
   <div>
     <h2>👵 Attention</h2>
@@ -178,7 +176,7 @@ margin-top:15px;
 <div class="container">
 
 <h1>Chez mon biquet 🐐</h1>
-<p class="subtitle">Séjour absurde, rural et légèrement instable</p>
+<p class="subtitle">Expérience rurale immersive, absurde et vivante</p>
 <p class="badge">🔥 Dernière dispo • 👀 <span id="viewers">3</span> personnes regardent</p>
 
 <div class="gallery">
@@ -189,17 +187,26 @@ margin-top:15px;
 
 <div class="card">
 <h2>Description</h2>
-<p>Un lieu où la logique a pris des vacances prolongées.</p>
+<p>
+Bienvenue chez Mon Biquet, une expérience immersive où la réalité devient secondaire.  
+Ici, vous participez à des activités uniques avec le Biquet lui-même : cuisine improvisée, exploration de terrain et interactions imprévisibles.
+
+Vous pourrez également croiser la voisine, une présence locale mystérieuse qui apparaît sans prévenir et commente parfois vos décisions.
+
+L’expérience inclut aussi un biathlon en réalité virtuelle entièrement simulé, où ski et tir deviennent approximatifs mais mémorables.
+</p>
 </div>
 
 <div class="card">
 <h2>Prestations incluses</h2>
 <ul>
-<li>🍲 Cuisine chez Hémon</li>
-<li>🍄 Champignons aléatoires</li>
+<li>🍲 Cuisine chez Hémon à volonté</li>
+<li>🍄 Cueillette de champignons</li>
 <li>🔧 Plomberie immersive</li>
 <li>🎯 Biathlon VR</li>
 <li>🍺 Bière illimitée</li>
+<li>🍷 Dégustation de vin approximative</li>
+<li>🐐 Interaction avec le biquet</li>
 </ul>
 </div>
 
@@ -228,13 +235,13 @@ Accéder à la Loveroom 💋
 
 <div class="card small">
 CONDITIONS GÉNÉRALES :  
-Le biquet est autorité suprême du lieu.  
-Les réservations peuvent être modifiées sans préavis ni logique.  
-Les champignons influencent la perception du temps et de la réalité.  
-La plomberie immersive peut inclure des erreurs pédagogiques.  
-La voisine peut apparaître, observer ou disparaître sans raison.  
-Le Wi-Fi dépend d’un système non documenté.  
-Toute tentative de compréhension provoque une anomalie narrative.  
+Le Biquet décide de l’ambiance générale du séjour.  
+La voisine peut intervenir, commenter ou observer sans préavis.  
+Les activités peuvent changer sans notification.  
+Le biathlon en réalité virtuelle peut inclure des bugs immersifs volontaires.  
+Les champignons peuvent modifier la perception du temps.  
+Le Wi-Fi fonctionne selon humeur collective du bâtiment.  
+Toute logique excessive est automatiquement ignorée par le système.
 </div>
 
 </div>
