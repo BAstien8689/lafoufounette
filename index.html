@@ -3,271 +3,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La Foufounette - Loveroom</title>
-<link rel="icon" href="favico.png?v=2">
+<title>Chez mon biquet - Airbnb</title>
 
 <style>
 body {
   margin: 0;
-  font-family: Arial;
-  background: linear-gradient(to bottom, #000, #5a0f2e);
-  color: white;
+  font-family: Arial, sans-serif;
+  background: #f5efe6;
+  color: #333;
 }
 
-.container { max-width: 1000px; margin: auto; padding: 15px; }
-
-.wrapper { text-align: center; }
-
-.badges {
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-bottom:10px;
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
 }
 
-.badge {
-  background:#facc15;
-  color:black;
-  padding:5px 10px;
-  border-radius:8px;
-  font-size:12px;
-  font-weight:bold;
+h1 {
+  text-align: center;
+  font-size: 40px;
 }
 
-.badge.red { background:#ef4444; color:white; }
-
-h1 { font-size:36px; margin:5px 0; }
-.subtitle { font-style:italic; }
-
-.live { font-size:13px; opacity:0.9; }
+.subtitle {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #666;
+}
 
 .gallery {
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap:8px;
-  margin-top:10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 10px;
 }
 
 .gallery img {
-  width:100%;
-  height:200px;
-  object-fit:cover;
-  border-radius:12px;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 .card {
-  background: rgba(0,0,0,0.6);
-  padding: 12px;
+  background: white;
+  padding: 15px;
   border-radius: 12px;
-  margin-top: 12px;
+  margin-top: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.supp-list { display:flex; flex-direction:column; gap:8px; }
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #e8d5c4;
+  border-radius: 8px;
+  text-decoration: none;
+  color: black;
+  margin-top: 10px;
+}
 
 .calendar {
-  display:grid;
+  display: grid;
   grid-template-columns: repeat(7,1fr);
-  gap:4px;
+  gap: 5px;
 }
 
 .day {
-  padding:8px;
-  text-align:center;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:12px;
+  padding: 8px;
+  text-align: center;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-.free { background:#16a34a; }
-.booked { background:#991b1b; }
-.selected { background:#f59e0b !important; }
+.free { background: #a7f3d0; }
+.booked { background: #fca5a5; }
+.selected { background: #fbbf24; }
 
-.total-box {
-  margin-top:10px;
-  padding:12px;
-  background: linear-gradient(90deg,#22c55e,#f59e0b,#ef4444);
-  border-radius:10px;
-  text-align:center;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-/* POP +€ */
-.float {
-  position: fixed;
-  font-size: 28px;
+.total {
+  margin-top: 10px;
+  padding: 10px;
+  background: #e8d5c4;
+  border-radius: 8px;
+  text-align: center;
   font-weight: bold;
-  animation: pop 1s forwards;
+  cursor: pointer;
 }
 
-@keyframes pop {
-  0%{opacity:0; transform:scale(0.5);}
-  20%{opacity:1; transform:scale(1.3);}
-  100%{opacity:0; transform:translateY(80px);}
-}
-
-/* ALERT */
-.alert {
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background:#111;
-  padding:10px 20px;
-  border-radius:10px;
-  border:1px solid #f59e0b;
-  display:none;
-}
-
-/* MODAL */
-.modal {
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(0,0,0,0.7);
-  align-items:center;
-  justify-content:center;
-}
-
-.modal-content {
-  background:#111;
-  padding:20px;
-  border-radius:12px;
-  text-align:center;
-}
 </style>
 </head>
 
 <body>
 
-<div class="alert" id="alert">⚡ Quelqu’un vient de réserver cette date !</div>
-
 <div class="container">
 
-<div class="wrapper">
-
-<div class="badges">
-  <div class="badge">NOUVEAU</div>
-  <div class="badge red">Dernière dispo aujourd’hui</div>
-</div>
-
-<h1>La Foufounette 💋</h1>
-<p class="subtitle">Expérience immersive 😏</p>
-<p>35 rue Robert Gaillard, Châtellerault</p>
-<p class="live">🔥 <span id="viewers">3</span> personnes regardent</p>
-
-</div>
+<h1>Chez mon biquet 🐐</h1>
+<p class="subtitle">Séjour rustique, authentique et légèrement improbable</p>
 
 <div class="gallery">
-  <img src="exterieur.jpg">
   <img src="image1.jpg">
   <img src="image2.jpg">
+  <img src="exterieur.jpg">
 </div>
 
 <div class="card">
-<h2>Description</h2>
-<p>
-Cave voûtée immersive aux murs en MAP (plâtre), ambiance rouge tamisée et atmosphère unique. 
-Entre immersion sensorielle et univers décalé, chaque détail a été pensé pour une expérience hors norme.
-
-<br><br>
-
-NazOpanier revisité et macarons de Montmorillon viennent compléter ce moment atypique.
-</p>
+  <h2>Description</h2>
+  <p>
+  Bienvenue chez mon biquet, un lieu chaleureux aux tons crème où le charme de la campagne 
+  rencontre des expériences uniques. Ici, on vit simplement… mais intensément 😏
+  </p>
 </div>
 
 <div class="card">
-<h2>Suppléments (+50€)</h2>
-<div class="supp-list">
-<label><input type="checkbox" class="supp"> NazOpanier</label>
-<label><input type="checkbox" class="supp"> Macaron de Montmorillon</label>
-<label><input type="checkbox" class="supp"> JP</label>
-<label><input type="checkbox" class="supp"> Sophie</label>
-<label><input type="checkbox" class="supp"> Pierre</label>
-<label><input type="checkbox" class="supp"> Maxence</label>
-<label><input type="checkbox" class="supp" data-special="thibault"> Thibault</label>
-</div>
+  <h2>Prestations incluses</h2>
+  <ul>
+    <li>🍲 Cuisine chez Hémon à volonté</li>
+    <li>🍄 Cueillette de champignons (selon survie)</li>
+    <li>🔧 Cours de plomberie immersifs</li>
+  </ul>
 </div>
 
 <div class="card">
-<h2>📅 Sélectionnez vos dates</h2>
-<div class="calendar" id="calendar"></div>
-<div class="total-box" id="total">Total : 150€</div>
+  <h2>📅 Disponibilités</h2>
+  <div class="calendar" id="calendar"></div>
+  <div class="total" id="total">Total : 80€</div>
 </div>
 
+<div class="card">
+  <h2>Envie de pimenter votre séjour ?</h2>
+  <a href="loveroom.html" class="button">Découvrir la Loveroom 💋</a>
 </div>
 
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <h2>Confirmation</h2>
-    <p>Votre réservation est payée et sera prélevée sur votre moyen de paiement habituel.</p>
-    <button onclick="closeModal()">OK</button>
-  </div>
 </div>
 
 <script>
-let base=150;
+let base = 80;
 
 function updateTotal(){
-  let nights=document.querySelectorAll('.selected').length||1;
-  let supp=document.querySelectorAll('.supp:checked').length*50;
-  total.innerText="Total : "+(nights*base+supp)+"€";
+  let nights = document.querySelectorAll('.selected').length;
+  if(nights === 0) nights = 1;
+  document.getElementById('total').innerText = "Total : " + (nights * base) + "€";
 }
 
-document.querySelectorAll('.supp').forEach(s=>{
-  s.onclick=e=>{
-    let r=e.target.getBoundingClientRect();
-    let txt=e.target.checked?"+50€":"-50€";
-    let color=e.target.checked?"lime":"red";
+const booked = [2,5,9,14,18,22];
+const cal = document.getElementById('calendar');
 
-    if(e.target.dataset.special==="thibault" && e.target.checked){
-      txt="on est pas des bêtes !";
-      color="orange";
-    }
-
-    let el=document.createElement("div");
-    el.className="float";
-    el.innerText=txt;
-    el.style.left=r.left+"px";
-    el.style.top=r.top+"px";
-    el.style.color=color;
-    document.body.appendChild(el);
-    setTimeout(()=>el.remove(),1000);
-
-    updateTotal();
-  };
-});
-
-const booked=[3,4,10,11,18,19,25];
 for(let i=1;i<=30;i++){
-  let d=document.createElement('div');
-  d.className='day';
-  d.innerText=i;
+  let d = document.createElement('div');
+  d.className = 'day';
+  d.innerText = i;
 
   if(booked.includes(i)) d.classList.add('booked');
   else d.classList.add('free');
 
-  d.onclick=()=>{
+  d.addEventListener('click', ()=>{
     if(d.classList.contains('booked')) return;
     d.classList.toggle('selected');
     updateTotal();
-  };
+  });
 
-  calendar.appendChild(d);
+  cal.appendChild(d);
 }
 
-/* FAKE ALERT */
-setInterval(()=>{
-  alertBox.style.display="block";
-  setTimeout(()=>alertBox.style.display="none",2000);
-},8000);
+document.getElementById('total').addEventListener('click', ()=>{
+  alert("Réservation confirmée chez mon biquet 🐐");
+});
 
-total.onclick=()=>modal.style.display="flex";
-
-function closeModal(){ modal.style.display="none"; }
-
-viewers.innerText=Math.floor(Math.random()*5)+3;
 updateTotal();
 </script>
 
