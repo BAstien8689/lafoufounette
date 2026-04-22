@@ -41,13 +41,7 @@ grid-template-columns:repeat(7,1fr);
 gap:5px;
 }
 
-.day{
-padding:8px;
-text-align:center;
-border-radius:6px;
-cursor:pointer;
-}
-
+.day{padding:8px;text-align:center;border-radius:6px;cursor:pointer;}
 .free{background:#a7f3d0;}
 .booked{background:#fca5a5;}
 .selected{background:#fbbf24;}
@@ -80,11 +74,11 @@ z-index:10;
 }
 .voisine.show{right:10px;}
 
-/* BULLE COLLÉE */
+/* BULLE (AU-DESSUS) */
 .bubble{
 position:fixed;
 right:170px;
-bottom:150px;
+bottom:260px;
 background:white;
 color:black;
 padding:8px 10px;
@@ -114,7 +108,7 @@ animation:fade 4s;
 100%{opacity:0;}
 }
 
-/* MODAL PAIEMENT */
+/* MODAL */
 .modal{
 display:none;
 position:fixed;
@@ -134,8 +128,8 @@ text-align:center;
 max-width:350px;
 }
 
-/* POPUP RISQUES */
-#startPopup{
+/* POPUP VOISINE */
+#voisinePopup{
 position:fixed;
 top:0;left:0;
 width:100%;height:100%;
@@ -148,24 +142,23 @@ color:white;
 text-align:center;
 }
 
-#startPopup div{
+#voisinePopup div{
 background:#222;
 padding:20px;
 border-radius:12px;
 max-width:320px;
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- ⚠️ POPUP RISQUES -->
-<div id="startPopup">
+<!-- 👵 POPUP VOISINE -->
+<div id="voisinePopup">
   <div>
-    <h2>⚠️ Attention</h2>
-    <p>Ce lieu contient des phénomènes inexpliqués, du fromage et des décisions caprines.</p>
-    <button onclick="closeStart()" style="padding:10px 15px;border:none;border-radius:8px;cursor:pointer;">
+    <h2>👵 Attention</h2>
+    <p>La voisine peut apparaître à tout moment<br>(et sans macaron…)</p>
+    <button onclick="closeVoisinePopup()" style="padding:10px 15px;border:none;border-radius:8px;cursor:pointer;">
       J’accepte les risques
     </button>
   </div>
@@ -186,7 +179,7 @@ max-width:320px;
 <div class="card">
 <h2>Description</h2>
 <p>
-Bienvenue chez mon biquet : un lieu où la logique est optionnelle mais fortement déconseillée.
+Un lieu où la logique prend des vacances prolongées.
 </p>
 </div>
 
@@ -194,7 +187,7 @@ Bienvenue chez mon biquet : un lieu où la logique est optionnelle mais fortemen
 <h2>Prestations incluses</h2>
 <ul>
 <li>🍲 Cuisine chez Hémon à volonté</li>
-<li>🍄 Cueillette de champignons</li>
+<li>🍄 Champignons (aléatoire)</li>
 <li>🔧 Plomberie immersive</li>
 <li>🎯 Biathlon VR</li>
 <li>🍺 Bière illimitée</li>
@@ -208,8 +201,8 @@ Bienvenue chez mon biquet : un lieu où la logique est optionnelle mais fortemen
 
 <p><strong>Jean-Michel</strong> — “Je suis venu dormir, je suis parti plombier.”</p>
 <p><strong>Sophie</strong> — “Le biquet m’a jugée mais gentiment.”</p>
-<p><strong>Kevin</strong> — “Bière = 5 étoiles.”</p>
-<p><strong>Monique</strong> — “Je comprends toujours pas.”</p>
+<p><strong>Kevin</strong> — “Bière donc parfait.”</p>
+<p><strong>Monique</strong> — “Je comprends rien mais j’ai repris.”</p>
 <p><strong>Thibault</strong> — “On est pas des bêtes !”</p>
 <p><strong>Didier</strong> — “Expérience étrange mais ok.”</p>
 
@@ -223,7 +216,7 @@ Bienvenue chez mon biquet : un lieu où la logique est optionnelle mais fortemen
 
 <div class="card">
 <h2>💋 Prolonger l’expérience</h2>
-<a href="loveroom.html" style="padding:10px 15px;background:#e8d5c4;border-radius:8px;text-decoration:none;color:black;display:inline-block;">
+<a href="loveroom.html" style="display:inline-block;padding:10px 15px;background:#e8d5c4;border-radius:8px;text-decoration:none;color:black;">
 Accéder à la Loveroom 💋
 </a>
 </div>
@@ -235,14 +228,16 @@ Accéder à la Loveroom 💋
 
 <div class="card small">
 CONDITIONS GÉNÉRALES :  
-Le biquet est l’autorité suprême.  
-Les réservations peuvent être modifiées sans logique.  
-Le Wi-Fi dépend de l’humeur du lieu.  
-Les champignons influencent la perception du réel.  
-La voisine peut apparaître sans raison et sans interaction obligatoire.  
-Toute tentative de compréhension entraîne un bug narratif temporaire.  
-Le séjour peut changer de nature sans avertissement.  
-La responsabilité du biquet est nulle, nulle et re-nulle.  
+Le biquet est autorité suprême.  
+Les réservations peuvent être modifiées sans logique ni préavis.  
+Les champignons peuvent altérer la perception du réel.  
+La cuisine chez Hémon est imprévisible.  
+Le Wi-Fi dépend d’un état émotionnel inconnu.  
+La plomberie immersive peut inclure des fuites volontaires.  
+La voisine peut apparaître, observer, commenter ou disparaître sans raison.  
+Le séjour peut changer de nature à tout moment.  
+Toute tentative de compréhension logique entraîne une anomalie narrative.  
+Le biquet n’est responsable d’aucune conséquence physique ou mentale.  
 </div>
 
 </div>
@@ -251,7 +246,7 @@ La responsabilité du biquet est nulle, nulle et re-nulle.
 <div class="modal" id="modal">
   <div class="modal-box">
     <h2>Paiement validé</h2>
-    <p>Votre réservation est payée et sera prélevée sur votre moyen de paiement habituel.</p>
+    <p>Votre réservation est payée et sera prélevée sur votre moyen habituel.</p>
     <button onclick="modal.style.display='none'">OK</button>
   </div>
 </div>
@@ -261,8 +256,8 @@ La responsabilité du biquet est nulle, nulle et re-nulle.
 
 <script>
 
-function closeStart(){
-document.getElementById("startPopup").style.display="none";
+function closeVoisinePopup(){
+document.getElementById("voisinePopup").style.display="none";
 }
 
 let base=80;
@@ -332,7 +327,7 @@ spawnVoisine();
 }
 },3500);
 
-/* fake réservations rares */
+/* réservations rares */
 setInterval(()=>{
 if(Math.random()>0.85){
 let f=document.createElement("div");
