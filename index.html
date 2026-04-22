@@ -19,73 +19,67 @@ body {
   padding: 20px;
 }
 
-h1 {
-  text-align: center;
-  font-size: 40px;
-}
+h1 { text-align: center; font-size: 40px; }
+.subtitle { text-align: center; color:#666; }
 
-.subtitle {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #666;
+.badge {
+  text-align:center;
+  font-size:14px;
+  margin-bottom:10px;
 }
 
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 10px;
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap:10px;
 }
 
 .gallery img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 12px;
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:12px;
 }
 
 .card {
-  background: white;
-  padding: 15px;
-  border-radius: 12px;
-  margin-top: 15px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.button {
-  display: inline-block;
-  padding: 10px 20px;
-  background: #e8d5c4;
-  border-radius: 8px;
-  text-decoration: none;
-  color: black;
-  margin-top: 10px;
+  background:white;
+  padding:15px;
+  border-radius:12px;
+  margin-top:15px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
 .calendar {
-  display: grid;
-  grid-template-columns: repeat(7,1fr);
-  gap: 5px;
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:5px;
 }
 
 .day {
-  padding: 8px;
-  text-align: center;
-  border-radius: 6px;
-  cursor: pointer;
+  padding:8px;
+  text-align:center;
+  border-radius:6px;
+  cursor:pointer;
 }
 
-.free { background: #a7f3d0; }
-.booked { background: #fca5a5; }
-.selected { background: #fbbf24; }
+.free { background:#a7f3d0; }
+.booked { background:#fca5a5; }
+.selected { background:#fbbf24; }
 
 .total {
-  margin-top: 10px;
-  padding: 10px;
-  background: #e8d5c4;
-  border-radius: 8px;
-  text-align: center;
-  font-weight: bold;
-  cursor: pointer;
+  margin-top:10px;
+  padding:10px;
+  background:#e8d5c4;
+  border-radius:8px;
+  text-align:center;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.small {
+  font-size:11px;
+  opacity:0.6;
+  margin-top:15px;
 }
 </style>
 </head>
@@ -95,7 +89,8 @@ h1 {
 <div class="container">
 
 <h1>Chez mon biquet 🐐</h1>
-<p class="subtitle">Séjour rustique, authentique et légèrement improbable</p>
+<p class="subtitle">Séjour rustique, authentique et légèrement incontrôlable</p>
+<p class="badge">🔥 Dernière disponibilité aujourd’hui • 🐐 Validé par le biquet</p>
 
 <div class="gallery">
   <img src="biquet1.jpg">
@@ -106,18 +101,36 @@ h1 {
 <div class="card">
   <h2>Description</h2>
   <p>
-  Bienvenue chez mon biquet, un lieu chaleureux aux tons crème où le charme de la campagne 
-  rencontre des expériences uniques. Ici, on vit simplement… mais intensément 😏
+  Bienvenue chez mon biquet, un lieu chaleureux aux tons crème où le charme de la campagne rencontre 
+  des expériences… discutables. Ici, on vit simplement, intensément, et parfois sans explication.
   </p>
 </div>
 
 <div class="card">
   <h2>Prestations incluses</h2>
   <ul>
-    <li>🍲 Cuisine chez Hémon à volonté</li>
-    <li>🍄 Cueillette de champignons (selon survie)</li>
-    <li>🔧 Cours de plomberie immersifs</li>
+    <li>🍲 Cuisine chez Hémon à volonté (résultat variable)</li>
+    <li>🍄 Cueillette de champignons (risque accepté automatiquement)</li>
+    <li>🔧 Cours de plomberie immersifs (fuite réelle incluse)</li>
+    <li>🎯 Biathlon en réalité virtuelle (effort optionnel)</li>
+    <li>🍺 Tireuse à bière à volonté (pression fluctuante)</li>
+    <li>🍷 Dégustation de vin (jugement non garanti)</li>
+    <li>🐐 Interaction avec le biquet (il décide)</li>
+    <li>🔥 Atelier feu (réussite rare mais applaudie)</li>
   </ul>
+</div>
+
+<div class="card">
+  <h2>Votre hôte</h2>
+  <p><strong>Biquet 🐐</strong> ⭐ Superhost depuis 1872</p>
+  <p>Taux de réponse : 102% • Temps : avant la question</p>
+</div>
+
+<div class="card">
+  <h2>Avis ⭐⭐⭐⭐⭐</h2>
+  <p>“Je suis venu dormir, je suis reparti plombier.”</p>
+  <p>“Le biquet m’a jugé mais j’ai accepté.”</p>
+  <p>“Expérience floue mais intense.”</p>
 </div>
 
 <div class="card">
@@ -127,8 +140,19 @@ h1 {
 </div>
 
 <div class="card">
-  <h2>Envie de pimenter votre séjour ?</h2>
-  <a href="loveroom.html" class="button">Découvrir la Loveroom 💋</a>
+  <h2>🔥 Attention</h2>
+  <p><strong>La voisine peut arriver à tout moment.</strong>  
+  Personne ne sait pourquoi. Ni comment.</p>
+</div>
+
+<div class="card small">
+  CONDITIONS GÉNÉRALES : Toute réservation implique l’acceptation tacite du biquet.  
+  Le biquet peut refuser sans motif, modifier la réalité ou déplacer les dates.  
+  Les champignons peuvent être réels ou conceptuels.  
+  Toute tentative de logique entraînera une suspension immédiate de la cohérence.  
+  Le séjour peut évoluer en stage plomberie sans préavis.  
+  Le Wi-Fi fonctionne uniquement quand il n’est pas nécessaire.  
+  La responsabilité du biquet n’est engagée dans aucun univers connu.  
 </div>
 
 </div>
@@ -142,7 +166,7 @@ function updateTotal(){
   document.getElementById('total').innerText = "Total : " + (nights * base) + "€";
 }
 
-const booked = [2,5,9,14,18,22];
+const booked = [2,5,9,14,18];
 const cal = document.getElementById('calendar');
 
 for(let i=1;i<=30;i++){
@@ -153,18 +177,24 @@ for(let i=1;i<=30;i++){
   if(booked.includes(i)) d.classList.add('booked');
   else d.classList.add('free');
 
-  d.addEventListener('click', ()=>{
+  d.onclick = () => {
     if(d.classList.contains('booked')) return;
     d.classList.toggle('selected');
     updateTotal();
-  });
+  };
 
   cal.appendChild(d);
 }
 
-document.getElementById('total').addEventListener('click', ()=>{
-  alert("Réservation confirmée chez mon biquet 🐐");
-});
+document.getElementById('total').onclick = () => {
+  const msgs = [
+    "🐐 Le biquet valide votre réservation",
+    "Validation caprine confirmée",
+    "Accepté sans lecture des conditions",
+    "Le biquet approuve vaguement"
+  ];
+  alert(msgs[Math.floor(Math.random()*msgs.length)]);
+};
 
 updateTotal();
 </script>
