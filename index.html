@@ -41,7 +41,13 @@ grid-template-columns:repeat(7,1fr);
 gap:5px;
 }
 
-.day{padding:8px;text-align:center;border-radius:6px;cursor:pointer;}
+.day{
+padding:8px;
+text-align:center;
+border-radius:6px;
+cursor:pointer;
+}
+
 .free{background:#a7f3d0;}
 .booked{background:#fca5a5;}
 .selected{background:#fbbf24;}
@@ -56,23 +62,11 @@ font-weight:bold;
 cursor:pointer;
 }
 
-.small{font-size:10px;opacity:0.7;line-height:1.4;margin-top:15px;}
-
-.modal{
-display:none;
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.7);
-align-items:center;justify-content:center;
-}
-
-.modal-box{
-background:#fff;
-padding:20px;
-border-radius:12px;
-text-align:center;
-max-width:350px;
+.small{
+font-size:10px;
+opacity:0.7;
+line-height:1.4;
+margin-top:15px;
 }
 
 /* VOISINE */
@@ -86,11 +80,11 @@ z-index:10;
 }
 .voisine.show{right:10px;}
 
-/* BULLE PLUS HAUTE */
+/* BULLE COLLÉE */
 .bubble{
 position:fixed;
 right:170px;
-bottom:260px;
+bottom:150px;
 background:white;
 color:black;
 padding:8px 10px;
@@ -98,6 +92,7 @@ border-radius:10px;
 font-size:12px;
 box-shadow:0 2px 6px rgba(0,0,0,0.3);
 z-index:11;
+max-width:140px;
 }
 
 /* FLASH */
@@ -118,10 +113,63 @@ animation:fade 4s;
 80%{opacity:1;}
 100%{opacity:0;}
 }
+
+/* MODAL PAIEMENT */
+.modal{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.7);
+align-items:center;
+justify-content:center;
+z-index:999;
+}
+
+.modal-box{
+background:#fff;
+padding:20px;
+border-radius:12px;
+text-align:center;
+max-width:350px;
+}
+
+/* POPUP RISQUES */
+#startPopup{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.85);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:9999;
+color:white;
+text-align:center;
+}
+
+#startPopup div{
+background:#222;
+padding:20px;
+border-radius:12px;
+max-width:320px;
+}
+
 </style>
 </head>
 
 <body>
+
+<!-- ⚠️ POPUP RISQUES -->
+<div id="startPopup">
+  <div>
+    <h2>⚠️ Attention</h2>
+    <p>Ce lieu contient des phénomènes inexpliqués, du fromage et des décisions caprines.</p>
+    <button onclick="closeStart()" style="padding:10px 15px;border:none;border-radius:8px;cursor:pointer;">
+      J’accepte les risques
+    </button>
+  </div>
+</div>
 
 <div class="container">
 
@@ -138,7 +186,7 @@ animation:fade 4s;
 <div class="card">
 <h2>Description</h2>
 <p>
-Bienvenue chez mon biquet : un lieu où la logique est optionnelle et l’expérience obligatoire.
+Bienvenue chez mon biquet : un lieu où la logique est optionnelle mais fortement déconseillée.
 </p>
 </div>
 
@@ -147,7 +195,7 @@ Bienvenue chez mon biquet : un lieu où la logique est optionnelle et l’expér
 <ul>
 <li>🍲 Cuisine chez Hémon à volonté</li>
 <li>🍄 Cueillette de champignons</li>
-<li>🔧 Cours de plomberie immersifs</li>
+<li>🔧 Plomberie immersive</li>
 <li>🎯 Biathlon VR</li>
 <li>🍺 Bière illimitée</li>
 <li>🍷 Dégustation de vin approximative</li>
@@ -158,12 +206,12 @@ Bienvenue chez mon biquet : un lieu où la logique est optionnelle et l’expér
 <div class="card">
 <h2>Avis ⭐⭐⭐⭐⭐</h2>
 
-<p><strong>Jean-Michel</strong> — “Je suis venu dormir, je suis reparti plombier.”</p>
+<p><strong>Jean-Michel</strong> — “Je suis venu dormir, je suis parti plombier.”</p>
 <p><strong>Sophie</strong> — “Le biquet m’a jugée mais gentiment.”</p>
-<p><strong>Kevin</strong> — “Il y avait de la bière donc parfait.”</p>
-<p><strong>Monique</strong> — “Je ne comprends toujours pas mais j’ai réservé encore.”</p>
+<p><strong>Kevin</strong> — “Bière = 5 étoiles.”</p>
+<p><strong>Monique</strong> — “Je comprends toujours pas.”</p>
 <p><strong>Thibault</strong> — “On est pas des bêtes !”</p>
-<p><strong>Didier</strong> — “J’ai perdu 2h de mémoire.”</p>
+<p><strong>Didier</strong> — “Expérience étrange mais ok.”</p>
 
 </div>
 
@@ -175,36 +223,26 @@ Bienvenue chez mon biquet : un lieu où la logique est optionnelle et l’expér
 
 <div class="card">
 <h2>💋 Prolonger l’expérience</h2>
-<p>Envie d’aller encore plus loin dans l’univers du biquet ?</p>
-<a href="loveroom.html" style="display:inline-block;padding:10px 15px;background:#e8d5c4;border-radius:8px;text-decoration:none;color:black;">
+<a href="loveroom.html" style="padding:10px 15px;background:#e8d5c4;border-radius:8px;text-decoration:none;color:black;display:inline-block;">
 Accéder à la Loveroom 💋
 </a>
 </div>
 
 <div class="card">
 <h2>⚠️ Attention</h2>
-<p><strong>La voisine peut arriver à tout moment.</strong></p>
+<p><strong>La voisine peut apparaître à tout moment.</strong></p>
 </div>
 
 <div class="card small">
 CONDITIONS GÉNÉRALES :  
-Toute réservation implique l’acceptation totale et irrévocable du biquet comme autorité suprême du séjour.  
-Le biquet se réserve le droit de modifier le déroulement du séjour à tout moment, sans préavis, sans justification et sans logique apparente.  
-
-Les activités peuvent être réelles, symboliques ou totalement imaginaires.  
-Les champignons peuvent influencer la perception du temps, de l’espace et des décisions.  
-La cuisine chez Hémon peut varier entre chef étoilé et improvisation totale.  
-
-Le Wi-Fi est fourni “dans la mesure du possible”, ce qui reste volontairement flou.  
-La plomberie immersive peut inclure des fuites pédagogiques ou des erreurs intentionnelles.  
-
-La présence de la voisine est aléatoire, indépendante du temps, et non contractuelle.  
-Elle peut apparaître, observer, commenter ou repartir sans interaction.  
-
-Toute tentative de compréhension rationnelle du lieu entraîne une perte temporaire de cohérence narrative.  
-Le séjour peut évoluer en expérience agricole, philosophique ou totalement autre sans notification.  
-
-En cas de plainte, le biquet se réserve le droit de bêler en réponse.  
+Le biquet est l’autorité suprême.  
+Les réservations peuvent être modifiées sans logique.  
+Le Wi-Fi dépend de l’humeur du lieu.  
+Les champignons influencent la perception du réel.  
+La voisine peut apparaître sans raison et sans interaction obligatoire.  
+Toute tentative de compréhension entraîne un bug narratif temporaire.  
+Le séjour peut changer de nature sans avertissement.  
+La responsabilité du biquet est nulle, nulle et re-nulle.  
 </div>
 
 </div>
@@ -222,6 +260,11 @@ En cas de plainte, le biquet se réserve le droit de bêler en réponse.
 <img id="voisine" class="voisine">
 
 <script>
+
+function closeStart(){
+document.getElementById("startPopup").style.display="none";
+}
+
 let base=80;
 
 /* calendrier */
@@ -253,18 +296,7 @@ total.onclick=()=>modal.style.display="flex";
 
 viewers.innerText=Math.floor(Math.random()*5)+3;
 
-/* réservations rares */
-setInterval(()=>{
-if(Math.random()>0.85){
-let f=document.createElement("div");
-f.className="flash";
-f.innerText="⚡ Quelqu’un vient de réserver !";
-document.body.appendChild(f);
-setTimeout(()=>f.remove(),4000);
-}
-},5000);
-
-/* VOISINE + BULLE HAUTE */
+/* VOISINE */
 const voisins=["voisine.png","voisine1.png","voisine2.png","voisine3.png"];
 
 const phrases=[
@@ -273,7 +305,7 @@ const phrases=[
 "j'arrive sans prévenir",
 "je surveille",
 "je passe juste",
-"c'est normal ici ?",
+"c’est normal ici ?",
 "je reviens",
 "je comprends rien"
 ];
@@ -299,6 +331,17 @@ if(Math.random()>0.45){
 spawnVoisine();
 }
 },3500);
+
+/* fake réservations rares */
+setInterval(()=>{
+if(Math.random()>0.85){
+let f=document.createElement("div");
+f.className="flash";
+f.innerText="⚡ Quelqu’un vient de réserver !";
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),4000);
+}
+},5000);
 
 update();
 </script>
