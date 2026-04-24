@@ -5,91 +5,107 @@
 <title>Le détroit d'Ormuz est-il ouvert ?</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #1e1e2f, #2b2b3d);
-        color: #fff;
-        text-align: center;
-    }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+    background: url("https://images.unsplash.com/photo-1446776811953-b23d57bd21aa") no-repeat center/cover;
+}
 
-    .card {
-        background: rgba(255,255,255,0.05);
-        backdrop-filter: blur(10px);
-        padding: 50px;
-        border-radius: 20px;
-        width: 90%;
-        max-width: 600px;
-        margin: 100px auto;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    }
+/* overlay sombre */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+}
 
-    h1 {
-        margin-bottom: 30px;
-    }
+/* carte centrale */
+.card {
+    position: relative;
+    margin: 80px auto;
+    padding: 40px;
+    width: 90%;
+    max-width: 600px;
+    background: rgba(20,20,30,0.85);
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.6);
+}
 
-    button {
-        padding: 15px 30px;
-        font-size: 1.2em;
-        border: none;
-        border-radius: 10px;
-        background: linear-gradient(45deg, #ff4d4d, #ff9900);
-        color: white;
-        cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
+/* bouton */
+button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}
 
-    button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-    }
+button:hover {
+    transform: scale(1.05);
+}
 
-    #thinking {
-        margin-top: 25px;
-        font-style: italic;
-        color: #bbb;
-        height: 30px;
-    }
+/* réflexion */
+#thinking {
+    margin-top: 25px;
+    font-style: italic;
+    color: #ccc;
+    height: 30px;
+}
 
-    #result {
-        margin-top: 40px;
-        font-size: 2.5em;
-        font-weight: bold;
-    }
+/* barre */
+#progress {
+    width: 100%;
+    height: 10px;
+    background: #333;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
 
-    #sub {
-        margin-top: 10px;
-        color: #ccc;
-        font-style: italic;
-    }
+#bar {
+    height: 100%;
+    width: 0%;
+    background: #00c6ff;
+    transition: width 0.2s;
+}
 
-    /* ALERTE */
-    #corner {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        padding: 20px;
-        border-radius: 15px;
-        font-size: 1.1em;
-        max-width: 320px;
-        display: none;
-        box-shadow: 0 0 25px rgba(0,0,0,0.5);
-        animation: pop 0.3s ease;
-        color: white;
-    }
+/* résultat */
+#result {
+    margin-top: 40px;
+    font-size: 2.4em;
+    font-weight: bold;
+}
 
-    @keyframes pop {
-        from { transform: scale(0.8); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-    }
+#sub {
+    margin-top: 10px;
+    color: #aaa;
+}
 
-    .alert-red {
-        background: #e53935;
-    }
+/* alerte */
+#corner {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 300px;
+    display: none;
+    font-size: 1em;
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+}
 
-    .alert-green {
-        background: #43a047;
-    }
+.alert-red {
+    background: #e53935;
+}
+
+.alert-green {
+    background: #43a047;
+}
 </style>
 </head>
 
@@ -101,6 +117,11 @@
     <button onclick="checkStatus()">Maintenant ?</button>
 
     <div id="thinking"></div>
+
+    <div id="progress">
+        <div id="bar"></div>
+    </div>
+
     <div id="result"></div>
     <div id="sub"></div>
 </div>
@@ -109,14 +130,14 @@
 
 <script>
 const thinkingPhrases = [
-    "Analyse des courants maritimes approximatifs...",
+    "Analyse satellite en cours...",
     "Nos experts regardent de près… mais pas trop...",
-    "Consultation du neurone de Donald Trump...",
-    "Lecture de cartes à moitié comprises...",
-    "Simulation d’experts pas d’accord...",
-    "Observation intense de quelque chose...",
-    "Connexion à une source probablement fiable...",
-    "Réflexion profonde (ou pas)..."
+    "Lecture des flux maritimes invisibles...",
+    "Connexion à une source douteusement fiable...",
+    "Analyse du neurone de Donald Trump...",
+    "Croisement de données contradictoires...",
+    "Observation d’un point sur la carte...",
+    "Simulation d’experts fatigués..."
 ];
 
 const mainAnswers = [
@@ -126,65 +147,75 @@ const mainAnswers = [
     "Les infos sont floues.",
     "Aucune certitude.",
     "Difficile à dire.",
-    "La situation est ambiguë.",
-    "Peut-être. Peut-être pas."
+    "Peut-être. Peut-être pas.",
+    "Rien de clair."
 ];
 
 const subTexts = [
     "Les données ne convergent pas.",
-    "Certains disent oui. D'autres… non.",
-    "Tout dépend du point de vue.",
-    "Les experts hésitent aussi.",
-    "Ça bouge, mais dans quel sens ?"
+    "Les experts hésitent.",
+    "Certains disent oui. D'autres non.",
+    "La situation évolue.",
+    "On observe sans comprendre."
 ];
 
 const alertMessages = [
-    "🚨 BREAKING: CRISE MONDIALE IMMINENTE",
-    "🚨 ALERTE: situation critique détectée",
-    "🚨 URGENT: mouvement suspect observé",
-    "🚨 DERNIÈRE MINUTE: tension maximale"
+    "🚨 BREAKING: activité inhabituelle détectée",
+    "🚨 ALERTE: mouvement suspect repéré",
+    "🚨 URGENT: tension en hausse",
+    "🚨 INFO: situation instable",
+    "🚨 FLASH: possible incident"
 ];
 
 const calmBack = [
     "On s’est emballé trop vite.",
     "C’était juste une fusée.",
-    "Fausse alerte finalement.",
+    "Fausse alerte.",
     "On a cru à un truc.",
-    "Rien de grave en fait.",
-    "On a peut-être exagéré."
+    "Rien de grave finalement.",
+    "Erreur d’interprétation."
 ];
 
 function checkStatus() {
     const thinking = document.getElementById("thinking");
     const result = document.getElementById("result");
     const sub = document.getElementById("sub");
+    const bar = document.getElementById("bar");
     const corner = document.getElementById("corner");
 
     result.innerHTML = "";
     sub.innerHTML = "";
     corner.style.display = "none";
+    bar.style.width = "0%";
 
     thinking.innerHTML = thinkingPhrases[Math.floor(Math.random() * thinkingPhrases.length)];
 
-    setTimeout(() => {
-        thinking.innerHTML = "";
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += Math.random() * 8;
+        bar.style.width = progress + "%";
 
-        result.innerHTML = mainAnswers[Math.floor(Math.random() * mainAnswers.length)];
-        sub.innerHTML = subTexts[Math.floor(Math.random() * subTexts.length)];
+        if (progress >= 100) {
+            clearInterval(interval);
 
-        // 40% chance d'alerte
-        if (Math.random() < 0.4) {
-            corner.className = "alert-red";
-            corner.innerHTML = alertMessages[Math.floor(Math.random() * alertMessages.length)];
-            corner.style.display = "block";
+            thinking.innerHTML = "";
 
-            setTimeout(() => {
-                corner.className = "alert-green";
-                corner.innerHTML += "<br><br>" + calmBack[Math.floor(Math.random() * calmBack.length)];
-            }, 2000);
+            result.innerHTML = mainAnswers[Math.floor(Math.random() * mainAnswers.length)];
+            sub.innerHTML = subTexts[Math.floor(Math.random() * subTexts.length)];
+
+            // 30% chance d'alerte
+            if (Math.random() < 0.3) {
+                corner.className = "alert-red";
+                corner.innerHTML = alertMessages[Math.floor(Math.random() * alertMessages.length)];
+                corner.style.display = "block";
+
+                setTimeout(() => {
+                    corner.className = "alert-green";
+                    corner.innerHTML += "<br><br>" + calmBack[Math.floor(Math.random() * calmBack.length)];
+                }, 2500);
+            }
         }
-
-    }, 1200);
+    }, 200);
 }
 </script>
 
