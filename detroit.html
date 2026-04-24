@@ -24,74 +24,82 @@ body {
 
 /* panel */
 .panel {
-    background: rgba(0, 20, 10, 0.9);
-    border: 1px solid #00ff9c33;
-    border-radius: 12px;
+    background: rgba(0, 20, 10, 0.85);
+    border: 1px solid #00ff9c22;
+    border-radius: 14px;
     padding: 25px;
-    box-shadow: 0 0 25px #00ff9c22;
+    box-shadow: 0 0 30px #00ff9c22;
 }
 
 /* titres */
 .title {
     text-align: center;
-    font-size: 1.4em;
-    margin-bottom: 10px;
+    font-size: 1.5em;
+    margin-bottom: 5px;
 }
 
 .subtitle {
     text-align: center;
     font-size: 0.8em;
-    opacity: 0.6;
-    margin-bottom: 20px;
+    opacity: 0.5;
+    margin-bottom: 25px;
 }
 
 /* bouton */
 button {
     width: 100%;
-    padding: 15px;
-    background: #001a10;
+    padding: 14px;
+    background: linear-gradient(45deg, #003322, #001a10);
     color: #00ff9c;
-    border: 1px solid #00ff9c55;
+    border: 1px solid #00ff9c44;
+    border-radius: 8px;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
 button:hover {
-    background: #003322;
+    transform: scale(1.02);
+    box-shadow: 0 0 10px #00ff9c44;
 }
 
 /* thinking */
 #thinking {
     margin-top: 20px;
-    font-size: 0.9em;
+    font-size: 0.85em;
     opacity: 0.8;
+    min-height: 20px;
 }
 
 /* progress */
 .progress {
-    height: 8px;
+    height: 6px;
     background: #001a10;
     margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .bar {
     height: 100%;
     width: 0%;
-    background: #00ff9c;
+    background: linear-gradient(90deg, #00ff9c, #00cfff);
+    box-shadow: 0 0 10px #00ff9c;
+    transition: width 0.15s linear;
 }
 
-/* result */
+/* résultat */
 #result {
     margin-top: 25px;
-    font-size: 1.8em;
+    font-size: 1.7em;
 }
 
 #sub {
     margin-top: 10px;
-    font-size: 0.9em;
+    font-size: 0.85em;
     opacity: 0.7;
 }
 
-/* alert */
+/* alerte */
 #alert {
     position: fixed;
     bottom: 15px;
@@ -100,19 +108,19 @@ button:hover {
     max-width: 400px;
     margin: auto;
     padding: 15px;
-    border: 1px solid;
+    border-radius: 10px;
     display: none;
 }
 
 .red {
-    color: red;
-    border-color: red;
-    background: rgba(50,0,0,0.9);
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b;
+    background: rgba(80,0,0,0.9);
 }
 
 .green {
     color: #00ff9c;
-    border-color: #00ff9c;
+    border: 1px solid #00ff9c;
     background: rgba(0,40,20,0.9);
 }
 
@@ -121,23 +129,24 @@ button:hover {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #001a10;
-    border: 1px solid #00ff9c55;
+    background: rgba(0,20,10,0.95);
+    border: 1px solid #00ff9c33;
     padding: 15px;
+    border-radius: 10px;
     display: none;
     max-width: 250px;
-    font-size: 0.85em;
+    font-size: 0.8em;
 }
 
 #popup button {
     margin-top: 10px;
-    font-size: 0.8em;
+    font-size: 0.75em;
 }
 
 /* responsive */
 @media (max-width: 500px) {
-    .title { font-size: 1.1em; }
-    #result { font-size: 1.4em; }
+    .title { font-size: 1.2em; }
+    #result { font-size: 1.3em; }
 }
 </style>
 </head>
@@ -148,7 +157,7 @@ button:hover {
     <div class="panel">
 
         <div class="title">Le détroit d'Ormuz est-il ouvert ?</div>
-        <div class="subtitle">ORBITAL MONITOR // ACCÈS RESTREINT</div>
+        <div class="subtitle">ORBITAL MONITOR</div>
 
         <button onclick="scan()">Et maintenant ?</button>
 
@@ -174,15 +183,11 @@ button:hover {
 <script>
 const thinking = [
     "Analyse satellite en cours...",
-    "Nos experts regardent de près… mais pas trop...",
+    "Nos experts regardent… vaguement...",
     "Analyse des signaux de fumée...",
-    "Recherche dans la cavité cervicale de Donald Trump : trop de résonance à cause du vide...",
+    "Recherche dans la cavité cervicale de Donald Trump...",
     "Croisement de données contradictoires...",
-    "Scan radar basse précision...",
-    "Observation d’un point suspect...",
-    "Simulation d’experts pas d’accord...",
-    "Analyse quantique approximative...",
-    "Lecture de données incompréhensibles..."
+    "Scan radar approximatif..."
 ];
 
 const answers = [
@@ -191,40 +196,32 @@ const answers = [
     "Peut-être bien que non.",
     "Oui… enfin non.",
     "Ni ouvert. Ni fermé.",
-    "Ça dépend.",
-    "On hésite.",
-    "C’est flou.",
-    "Un peu des deux.",
-    "Globalement incertain."
+    "C’est flou."
 ];
 
 const sub = [
     "Les données ne convergent pas.",
     "Les experts hésitent.",
-    "Certains disent oui. D'autres non.",
     "On observe sans comprendre.",
-    "Les signaux sont contradictoires."
+    "Situation ambiguë."
 ];
 
 const alerts = [
-    "🚨 ALERTE: activité inhabituelle détectée",
-    "🚨 BREAKING: mouvement suspect observé",
-    "🚨 FLASH: tension en hausse"
+    "🚨 activité inhabituelle détectée",
+    "🚨 mouvement suspect",
+    "🚨 tension en hausse"
 ];
 
 const calm = [
-    "On s’est emballé trop vite.",
-    "C’était juste une fusée.",
-    "Fausse alerte finalement.",
-    "Rien de grave en fait."
+    "On s’est emballé.",
+    "C’était une fusée.",
+    "Fausse alerte."
 ];
 
 const popupTexts = [
-    "Vous êtes sûr de ne pas avoir autre chose à faire ?",
-    "Surveiller le détroit… encore ?",
-    "Peut-être prendre une pause ?",
-    "C’est important pour vous ça ?",
-    "Personne ne vous regarde, vous pouvez arrêter."
+    "T’as pas autre chose à faire ?",
+    "Encore là ?",
+    "Ça t’obsède un peu non ?"
 ];
 
 function scan() {
@@ -244,7 +241,7 @@ function scan() {
     let p = 0;
 
     const interval = setInterval(() => {
-        p += Math.random() * 5;
+        p += 12; // plus rapide
         b.style.width = p + "%";
 
         if (p >= 100) {
@@ -262,21 +259,17 @@ function scan() {
                 setTimeout(() => {
                     a.className = "green";
                     a.innerHTML += "<br>" + calm[Math.floor(Math.random()*calm.length)];
-                }, 2500);
+                }, 2000);
             }
 
-            // popup aléatoire
-            if (Math.random() < 0.25) {
-                showPopup();
-            }
+            if (Math.random() < 0.25) showPopup();
         }
-    }, 200);
+    }, 150); // plus fluide
 }
 
 function showPopup() {
     const popup = document.getElementById("popup");
     const text = document.getElementById("popupText");
-
     text.innerHTML = popupTexts[Math.floor(Math.random()*popupTexts.length)];
     popup.style.display = "block";
 }
