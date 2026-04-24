@@ -6,7 +6,7 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background: #f5f5f5;
+        background: #f4f4f4;
         color: #222;
         text-align: center;
         padding-top: 100px;
@@ -14,7 +14,7 @@
 
     h1 {
         font-size: 2em;
-        margin-bottom: 40px;
+        margin-bottom: 30px;
     }
 
     button {
@@ -31,29 +31,43 @@
         background: #444;
     }
 
+    #thinking {
+        margin-top: 30px;
+        font-style: italic;
+        color: #777;
+        height: 30px;
+    }
+
     #result {
-        margin-top: 60px;
+        margin-top: 40px;
         font-size: 2.5em;
         font-weight: bold;
         min-height: 80px;
     }
 
     #sub {
-        margin-top: 15px;
+        margin-top: 10px;
         color: #666;
         font-style: italic;
     }
 
-    /* Coin breaking */
+    /* GROS encart coin */
     #corner {
         position: fixed;
         bottom: 20px;
         right: 20px;
-        padding: 15px;
-        border-radius: 10px;
-        font-size: 0.9em;
-        max-width: 250px;
+        padding: 20px;
+        border-radius: 12px;
+        font-size: 1.1em;
+        max-width: 300px;
         display: none;
+        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        animation: pop 0.3s ease;
+    }
+
+    @keyframes pop {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
     }
 
     .breaking {
@@ -78,82 +92,99 @@
 
 <button onclick="checkStatus()">Maintenant ?</button>
 
+<div id="thinking"></div>
 <div id="result"></div>
 <div id="sub"></div>
 
 <div id="corner"></div>
 
 <script>
+const thinkingPhrases = [
+    "Analyse des courants maritimes approximatifs...",
+    "Nos experts regardent de près… mais pas trop...",
+    "Consultation du neurone de Donald Trump...",
+    "Lecture de cartes à moitié comprises...",
+    "Simulation d’experts pas d’accord entre eux...",
+    "Observation intense de quelque chose...",
+    "Analyse stratégique très floue...",
+    "Connexion à une source probablement fiable...",
+    "Réflexion profonde (ou pas)...",
+    "Croisement de données douteuses..."
+];
+
 const mainAnswers = [
     "On ne sait pas.",
     "Impossible à confirmer.",
-    "C’est… incertain.",
-    "Les informations sont floues.",
-    "Rien de vraiment clair.",
-    "On manque de certitudes.",
+    "C’est incertain.",
+    "Les infos sont floues.",
+    "Aucune certitude.",
     "Difficile à dire.",
-    "Les signaux sont contradictoires.",
-    "Aucune conclusion fiable.",
-    "C’est en cours d’évaluation.",
-    "Peut-être. Ou pas.",
-    "On préfère ne pas trancher.",
-    "La situation reste ambiguë.",
-    "On ne peut pas affirmer."
+    "On préfère ne pas conclure.",
+    "La situation est ambiguë.",
+    "Peut-être. Peut-être pas.",
+    "Rien de clair pour l’instant."
 ];
 
 const subTexts = [
     "Les données ne convergent pas.",
-    "Certaines sources disent oui. D'autres… autre chose.",
+    "Certains disent oui. D'autres… non.",
     "Tout dépend du point de vue.",
-    "La situation évolue constamment.",
-    "On surveille, sans comprendre.",
-    "Il y a du mouvement, mais lequel ?",
-    "Rien n’est totalement fermé. Ni ouvert.",
-    "Les experts hésitent aussi."
+    "On observe sans comprendre.",
+    "Les experts hésitent aussi.",
+    "Ça bouge, mais dans quel sens ?",
+    "Rien n’est totalement fermé. Ni ouvert."
 ];
 
 const cornerMessages = [
-    { type: "breaking", text: "BREAKING: Crise mondiale imminente !" },
-    { type: "breaking", text: "ALERTE: Situation critique détectée !" },
-    { type: "promo", text: "Promo: -0% sur l’inquiétude globale" },
-    { type: "promo", text: "Offre spéciale: panique gratuite" },
-    { type: "info", text: "Info: Tout pourrait basculer. Ou pas." },
-    { type: "info", text: "Analyse: rien de certain n’est sûr" }
+    { type: "breaking", text: "🚨 BREAKING: CRISE MONDIALE IMMINENTE" },
+    { type: "breaking", text: "🚨 ALERTE: situation critique détectée" },
+    { type: "info", text: "📡 ANALYSE: activité inhabituelle observée" },
+    { type: "promo", text: "🔥 PROMO: panique générale activée" }
 ];
 
 const calmBack = [
-    "…ah non.",
-    "…fausse alerte.",
-    "…pas maintenant.",
-    "…on s’est peut-être trompé.",
-    "…finalement non."
+    "On s’est emballé trop vite.",
+    "On a cru à un truc.",
+    "C’était juste une fusée.",
+    "Fausse alerte finalement.",
+    "Rien de grave en fait.",
+    "Mauvaise interprétation.",
+    "On a peut-être exagéré.",
+    "Tout va bien… probablement."
 ];
 
 function checkStatus() {
+    const thinking = document.getElementById("thinking");
     const result = document.getElementById("result");
     const sub = document.getElementById("sub");
     const corner = document.getElementById("corner");
 
-    // Réponse principale (toujours floue)
-    result.innerHTML = mainAnswers[Math.floor(Math.random() * mainAnswers.length)];
-    sub.innerHTML = subTexts[Math.floor(Math.random() * subTexts.length)];
-
-    // Reset corner
+    result.innerHTML = "";
+    sub.innerHTML = "";
     corner.style.display = "none";
 
-    // 1 chance sur 5 d’avoir un délire
-    if (Math.random() < 0.2) {
-        const msg = cornerMessages[Math.floor(Math.random() * cornerMessages.length)];
+    thinking.innerHTML = thinkingPhrases[Math.floor(Math.random() * thinkingPhrases.length)];
 
-        corner.className = msg.type;
-        corner.innerHTML = msg.text;
-        corner.style.display = "block";
+    setTimeout(() => {
+        thinking.innerHTML = "";
 
-        // retournement après 2 sec
-        setTimeout(() => {
-            corner.innerHTML += "<br>" + calmBack[Math.floor(Math.random() * calmBack.length)];
-        }, 2000);
-    }
+        result.innerHTML = mainAnswers[Math.floor(Math.random() * mainAnswers.length)];
+        sub.innerHTML = subTexts[Math.floor(Math.random() * subTexts.length)];
+
+        // 40% de chance d'alerte
+        if (Math.random() < 0.4) {
+            const msg = cornerMessages[Math.floor(Math.random() * cornerMessages.length)];
+
+            corner.className = msg.type;
+            corner.innerHTML = msg.text;
+            corner.style.display = "block";
+
+            setTimeout(() => {
+                corner.innerHTML += "<br><br>" + calmBack[Math.floor(Math.random() * calmBack.length)];
+            }, 2000);
+        }
+
+    }, 1200);
 }
 </script>
 
