@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surveillance du détroit d'Ormuz</title>
+<title>Le détroit d'Ormuz est-il ouvert ?</title>
 
 <style>
 * { box-sizing: border-box; }
@@ -34,9 +34,9 @@ body {
 /* TITRES */
 .title-main {
     text-align: center;
-    font-size: 1.4em;
-    letter-spacing: 2px;
-    margin-bottom: 5px;
+    font-size: 1.5em;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
 }
 
 .title-sub {
@@ -123,7 +123,7 @@ button:hover {
 
 /* responsive */
 @media (max-width: 500px) {
-    .title-main { font-size: 1.1em; }
+    .title-main { font-size: 1.2em; }
     #result { font-size: 1.4em; }
 }
 </style>
@@ -134,10 +134,10 @@ button:hover {
 <div class="container">
     <div class="panel">
 
-        <div class="title-main">[ SURVEILLANCE DU DÉTROIT D'ORMUZ ]</div>
+        <div class="title-main">Le détroit d'Ormuz est-il ouvert ?</div>
         <div class="title-sub">ORBITAL MONITOR // ACCÈS RESTREINT</div>
 
-        <button onclick="scan()">Lancer analyse</button>
+        <button onclick="scan()">Et maintenant ?</button>
 
         <div id="thinking"></div>
 
