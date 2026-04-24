@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le détroit d'Ormuz est-il ouvert ?</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #050505;
+        color: #eee;
+        text-align: center;
+        padding-top: 80px;
+        overflow: hidden;
+    }
+
+    h1 {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+
+    button {
+        padding: 15px 30px;
+        font-size: 1.2em;
+        background: #111;
+        color: #fff;
+        border: 1px solid #444;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #222;
+    }
+
+    #thinking {
+        margin-top: 30px;
+        font-style: italic;
+        color: #777;
+        height: 30px;
+    }
+
+    #alert {
+        margin-top: 40px;
+        font-size: 2.5em;
+        font-weight: bold;
+        height: 100px;
+        transition: all 0.3s ease;
+    }
+
+    .panic {
+        color: red;
+        animation: shake 0.2s infinite;
+    }
+
+    .calm {
+        color: #4caf50;
+    }
+
+    @keyframes shake {
+        0% { transform: translate(2px, 2px); }
+        25% { transform: translate(-2px, -2px); }
+        50% { transform: translate(2px, -2px); }
+        75% { transform: translate(-2px, 2px); }
+        100% { transform: translate(2px, 2px); }
+    }
+
+    #subtext {
+        margin-top: 10px;
+        color: #999;
+        font-size: 1em;
+    }
+
+    #gauge {
+        width: 300px;
+        height: 20px;
+        margin: 40px auto;
+        background: #222;
+        border: 1px solid #555;
+        position: relative;
+    }
+
+    #gaugeFill {
+        height: 100%;
+        width: 0%;
+        background: red;
+        transition: width 0.5s;
+    }
+</style>
+</head>
+<body>
+
+<h1>Le détroit d'Ormuz est-il ouvert ?</h1>
+
+<button onclick="checkStatus()">Maintenant ?</button>
+
+<div id="thinking"></div>
+
+<div id="gauge">
+    <div id="gaugeFill"></div>
+</div>
+
+<div id="alert"></div>
+<div id="subtext"></div>
+
+<script>
+const thinkingPhrases = [
+    "Analyse géopolitique ultra sérieuse...",
+    "Consultation de cartes maritimes invisibles...",
+    "Simulation d'experts qui ne sont pas d'accord...",
+    "Lecture de signaux faibles très forts...",
+    "Réflexion intense en cours...",
+    "Corrélation d’événements improbables..."
+];
+
+const calmBack = [
+    "Ah non.",
+    "Pas tout de suite.",
+    "Finalement ça va.",
+    "Rien d’alarmant… probablement.",
+    "On s’est emballé.",
+    "Erreur d’interprétation.",
+    "Fausse alerte globale.",
+    "Tout est sous contrôle. Enfin… presque."
+];
+
+const vagueSub = [
+    "La situation reste… interprétable.",
+    "Les données étaient pourtant convaincantes.",
+    "Quelque chose avait l’air de se passer.",
+    "Il faut rester vigilant sans raison précise.",
+    "On préfère ne pas conclure trop vite.",
+    "Le doute est maintenu volontairement."
+];
+
+function checkStatus() {
+    const thinking = document.getElementById("thinking");
+    const alert = document.getElementById("alert");
+    const sub = document.getElementById("subtext");
+    const gauge = document.getElementById("gaugeFill");
+
+    alert.className = "";
+    sub.innerHTML = "";
+    alert.innerHTML = "";
+    gauge.style.width = "0%";
+
+    thinking.innerHTML = thinkingPhrases[Math.floor(Math.random() * thinkingPhrases.length)];
+
+    // montée dramatique
+    let level = 0;
+    const interval = setInterval(() => {
+        level += Math.random() * 30;
+        gauge.style.width = Math.min(level, 100) + "%";
+
+        if (level >= 100) {
+            clearInterval(interval);
+
+            thinking.innerHTML = "";
+
+            // PANIQUE
+            alert.innerHTML = "CRISE MONDIALE IMMINENTE";
+            alert.className = "panic";
+
+            // puis... retournement
+            setTimeout(() => {
+                alert.className = "calm";
+                alert.innerHTML = calmBack[Math.floor(Math.random() * calmBack.length)];
+                sub.innerHTML = vagueSub[Math.floor(Math.random() * vagueSub.length)];
+                gauge.style.width = Math.random() * 40 + "%";
+            }, 1200);
+        }
+    }, 200);
+}
+</script>
+
+</body>
+</html>
