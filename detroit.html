@@ -3,38 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <title>Le détroit d'Ormuz est-il ouvert ?</title>
+
 <style>
     body {
+        margin: 0;
         font-family: Arial, sans-serif;
-        background: #f4f4f4;
-        color: #222;
+        background: linear-gradient(135deg, #1e1e2f, #2b2b3d);
+        color: #fff;
         text-align: center;
-        padding-top: 100px;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+        padding: 50px;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 600px;
+        margin: 100px auto;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     }
 
     h1 {
-        font-size: 2em;
         margin-bottom: 30px;
     }
 
     button {
         padding: 15px 30px;
         font-size: 1.2em;
-        background: #222;
-        color: #fff;
         border: none;
+        border-radius: 10px;
+        background: linear-gradient(45deg, #ff4d4d, #ff9900);
+        color: white;
         cursor: pointer;
-        border-radius: 6px;
+        transition: transform 0.2s, box-shadow 0.2s;
     }
 
     button:hover {
-        background: #444;
+        transform: scale(1.05);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.4);
     }
 
     #thinking {
-        margin-top: 30px;
+        margin-top: 25px;
         font-style: italic;
-        color: #777;
+        color: #bbb;
         height: 30px;
     }
 
@@ -42,27 +55,27 @@
         margin-top: 40px;
         font-size: 2.5em;
         font-weight: bold;
-        min-height: 80px;
     }
 
     #sub {
         margin-top: 10px;
-        color: #666;
+        color: #ccc;
         font-style: italic;
     }
 
-    /* GROS encart coin */
+    /* ALERTE */
     #corner {
         position: fixed;
         bottom: 20px;
         right: 20px;
         padding: 20px;
-        border-radius: 12px;
+        border-radius: 15px;
         font-size: 1.1em;
-        max-width: 300px;
+        max-width: 320px;
         display: none;
-        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        box-shadow: 0 0 25px rgba(0,0,0,0.5);
         animation: pop 0.3s ease;
+        color: white;
     }
 
     @keyframes pop {
@@ -70,31 +83,27 @@
         to { transform: scale(1); opacity: 1; }
     }
 
-    .breaking {
-        background: red;
-        color: white;
+    .alert-red {
+        background: #e53935;
     }
 
-    .promo {
-        background: #ff9800;
-        color: white;
-    }
-
-    .info {
-        background: #2196f3;
-        color: white;
+    .alert-green {
+        background: #43a047;
     }
 </style>
 </head>
+
 <body>
 
-<h1>Le détroit d'Ormuz est-il ouvert ?</h1>
+<div class="card">
+    <h1>Le détroit d'Ormuz est-il ouvert ?</h1>
 
-<button onclick="checkStatus()">Maintenant ?</button>
+    <button onclick="checkStatus()">Maintenant ?</button>
 
-<div id="thinking"></div>
-<div id="result"></div>
-<div id="sub"></div>
+    <div id="thinking"></div>
+    <div id="result"></div>
+    <div id="sub"></div>
+</div>
 
 <div id="corner"></div>
 
@@ -104,12 +113,10 @@ const thinkingPhrases = [
     "Nos experts regardent de près… mais pas trop...",
     "Consultation du neurone de Donald Trump...",
     "Lecture de cartes à moitié comprises...",
-    "Simulation d’experts pas d’accord entre eux...",
+    "Simulation d’experts pas d’accord...",
     "Observation intense de quelque chose...",
-    "Analyse stratégique très floue...",
     "Connexion à une source probablement fiable...",
-    "Réflexion profonde (ou pas)...",
-    "Croisement de données douteuses..."
+    "Réflexion profonde (ou pas)..."
 ];
 
 const mainAnswers = [
@@ -119,38 +126,32 @@ const mainAnswers = [
     "Les infos sont floues.",
     "Aucune certitude.",
     "Difficile à dire.",
-    "On préfère ne pas conclure.",
     "La situation est ambiguë.",
-    "Peut-être. Peut-être pas.",
-    "Rien de clair pour l’instant."
+    "Peut-être. Peut-être pas."
 ];
 
 const subTexts = [
     "Les données ne convergent pas.",
     "Certains disent oui. D'autres… non.",
     "Tout dépend du point de vue.",
-    "On observe sans comprendre.",
     "Les experts hésitent aussi.",
-    "Ça bouge, mais dans quel sens ?",
-    "Rien n’est totalement fermé. Ni ouvert."
+    "Ça bouge, mais dans quel sens ?"
 ];
 
-const cornerMessages = [
-    { type: "breaking", text: "🚨 BREAKING: CRISE MONDIALE IMMINENTE" },
-    { type: "breaking", text: "🚨 ALERTE: situation critique détectée" },
-    { type: "info", text: "📡 ANALYSE: activité inhabituelle observée" },
-    { type: "promo", text: "🔥 PROMO: panique générale activée" }
+const alertMessages = [
+    "🚨 BREAKING: CRISE MONDIALE IMMINENTE",
+    "🚨 ALERTE: situation critique détectée",
+    "🚨 URGENT: mouvement suspect observé",
+    "🚨 DERNIÈRE MINUTE: tension maximale"
 ];
 
 const calmBack = [
     "On s’est emballé trop vite.",
-    "On a cru à un truc.",
     "C’était juste une fusée.",
     "Fausse alerte finalement.",
+    "On a cru à un truc.",
     "Rien de grave en fait.",
-    "Mauvaise interprétation.",
-    "On a peut-être exagéré.",
-    "Tout va bien… probablement."
+    "On a peut-être exagéré."
 ];
 
 function checkStatus() {
@@ -171,15 +172,14 @@ function checkStatus() {
         result.innerHTML = mainAnswers[Math.floor(Math.random() * mainAnswers.length)];
         sub.innerHTML = subTexts[Math.floor(Math.random() * subTexts.length)];
 
-        // 40% de chance d'alerte
+        // 40% chance d'alerte
         if (Math.random() < 0.4) {
-            const msg = cornerMessages[Math.floor(Math.random() * cornerMessages.length)];
-
-            corner.className = msg.type;
-            corner.innerHTML = msg.text;
+            corner.className = "alert-red";
+            corner.innerHTML = alertMessages[Math.floor(Math.random() * alertMessages.length)];
             corner.style.display = "block";
 
             setTimeout(() => {
+                corner.className = "alert-green";
                 corner.innerHTML += "<br><br>" + calmBack[Math.floor(Math.random() * calmBack.length)];
             }, 2000);
         }
