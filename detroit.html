@@ -3,12 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ORBITAL MONITOR</title>
+<title>Surveillance du détroit d'Ormuz</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -26,19 +24,26 @@ body {
 
 /* panneau */
 .panel {
-    background: rgba(0, 20, 10, 0.8);
+    background: rgba(0, 20, 10, 0.85);
     border: 1px solid #00ff9c33;
     border-radius: 10px;
     padding: 25px;
     box-shadow: 0 0 20px #00ff9c22;
 }
 
-/* titre */
-h1 {
-    font-size: 1.4em;
+/* TITRES */
+.title-main {
     text-align: center;
-    margin-bottom: 20px;
+    font-size: 1.4em;
     letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+.title-sub {
+    text-align: center;
+    font-size: 0.9em;
+    opacity: 0.6;
+    margin-bottom: 20px;
 }
 
 /* bouton */
@@ -118,13 +123,8 @@ button:hover {
 
 /* responsive */
 @media (max-width: 500px) {
-    h1 {
-        font-size: 1.1em;
-    }
-
-    #result {
-        font-size: 1.4em;
-    }
+    .title-main { font-size: 1.1em; }
+    #result { font-size: 1.4em; }
 }
 </style>
 </head>
@@ -133,9 +133,11 @@ button:hover {
 
 <div class="container">
     <div class="panel">
-        <h1>[ ORBITAL MONITOR // STRAIT STATUS ]</h1>
 
-        <button onclick="scan()">INIT SCAN</button>
+        <div class="title-main">[ SURVEILLANCE DU DÉTROIT D'ORMUZ ]</div>
+        <div class="title-sub">ORBITAL MONITOR // ACCÈS RESTREINT</div>
+
+        <button onclick="scan()">Lancer analyse</button>
 
         <div id="thinking"></div>
 
@@ -152,13 +154,13 @@ button:hover {
 
 <script>
 const thinking = [
-    "Satellite uplink en cours...",
-    "Analyse thermique des eaux...",
+    "Analyse satellite en cours...",
     "Nos experts regardent de près… mais pas trop...",
-    "Décodage de signaux contradictoires...",
-    "Consultation du neurone de Donald Trump...",
+    "Lecture des flux maritimes...",
+    "Connexion à une source douteuse...",
+    "Analyse du neurone de Donald Trump...",
     "Scan radar basse précision...",
-    "Croisement de sources douteuses..."
+    "Croisement de données contradictoires..."
 ];
 
 const answers = [
