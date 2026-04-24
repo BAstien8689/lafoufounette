@@ -6,83 +6,69 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background: #050505;
-        color: #eee;
+        background: #f5f5f5;
+        color: #222;
         text-align: center;
-        padding-top: 80px;
-        overflow: hidden;
+        padding-top: 100px;
     }
 
     h1 {
         font-size: 2em;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
     }
 
     button {
         padding: 15px 30px;
         font-size: 1.2em;
-        background: #111;
+        background: #222;
         color: #fff;
-        border: 1px solid #444;
+        border: none;
         cursor: pointer;
+        border-radius: 6px;
     }
 
     button:hover {
-        background: #222;
+        background: #444;
     }
 
-    #thinking {
-        margin-top: 30px;
-        font-style: italic;
-        color: #777;
-        height: 30px;
-    }
-
-    #alert {
-        margin-top: 40px;
+    #result {
+        margin-top: 60px;
         font-size: 2.5em;
         font-weight: bold;
-        height: 100px;
-        transition: all 0.3s ease;
+        min-height: 80px;
     }
 
-    .panic {
-        color: red;
-        animation: shake 0.2s infinite;
+    #sub {
+        margin-top: 15px;
+        color: #666;
+        font-style: italic;
     }
 
-    .calm {
-        color: #4caf50;
+    /* Coin breaking */
+    #corner {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 0.9em;
+        max-width: 250px;
+        display: none;
     }
 
-    @keyframes shake {
-        0% { transform: translate(2px, 2px); }
-        25% { transform: translate(-2px, -2px); }
-        50% { transform: translate(2px, -2px); }
-        75% { transform: translate(-2px, 2px); }
-        100% { transform: translate(2px, 2px); }
-    }
-
-    #subtext {
-        margin-top: 10px;
-        color: #999;
-        font-size: 1em;
-    }
-
-    #gauge {
-        width: 300px;
-        height: 20px;
-        margin: 40px auto;
-        background: #222;
-        border: 1px solid #555;
-        position: relative;
-    }
-
-    #gaugeFill {
-        height: 100%;
-        width: 0%;
+    .breaking {
         background: red;
-        transition: width 0.5s;
+        color: white;
+    }
+
+    .promo {
+        background: #ff9800;
+        color: white;
+    }
+
+    .info {
+        background: #2196f3;
+        color: white;
     }
 </style>
 </head>
@@ -92,82 +78,82 @@
 
 <button onclick="checkStatus()">Maintenant ?</button>
 
-<div id="thinking"></div>
+<div id="result"></div>
+<div id="sub"></div>
 
-<div id="gauge">
-    <div id="gaugeFill"></div>
-</div>
-
-<div id="alert"></div>
-<div id="subtext"></div>
+<div id="corner"></div>
 
 <script>
-const thinkingPhrases = [
-    "Analyse géopolitique ultra sérieuse...",
-    "Consultation de cartes maritimes invisibles...",
-    "Simulation d'experts qui ne sont pas d'accord...",
-    "Lecture de signaux faibles très forts...",
-    "Réflexion intense en cours...",
-    "Corrélation d’événements improbables..."
+const mainAnswers = [
+    "On ne sait pas.",
+    "Impossible à confirmer.",
+    "C’est… incertain.",
+    "Les informations sont floues.",
+    "Rien de vraiment clair.",
+    "On manque de certitudes.",
+    "Difficile à dire.",
+    "Les signaux sont contradictoires.",
+    "Aucune conclusion fiable.",
+    "C’est en cours d’évaluation.",
+    "Peut-être. Ou pas.",
+    "On préfère ne pas trancher.",
+    "La situation reste ambiguë.",
+    "On ne peut pas affirmer."
+];
+
+const subTexts = [
+    "Les données ne convergent pas.",
+    "Certaines sources disent oui. D'autres… autre chose.",
+    "Tout dépend du point de vue.",
+    "La situation évolue constamment.",
+    "On surveille, sans comprendre.",
+    "Il y a du mouvement, mais lequel ?",
+    "Rien n’est totalement fermé. Ni ouvert.",
+    "Les experts hésitent aussi."
+];
+
+const cornerMessages = [
+    { type: "breaking", text: "BREAKING: Crise mondiale imminente !" },
+    { type: "breaking", text: "ALERTE: Situation critique détectée !" },
+    { type: "promo", text: "Promo: -0% sur l’inquiétude globale" },
+    { type: "promo", text: "Offre spéciale: panique gratuite" },
+    { type: "info", text: "Info: Tout pourrait basculer. Ou pas." },
+    { type: "info", text: "Analyse: rien de certain n’est sûr" }
 ];
 
 const calmBack = [
-    "Ah non.",
-    "Pas tout de suite.",
-    "Finalement ça va.",
-    "Rien d’alarmant… probablement.",
-    "On s’est emballé.",
-    "Erreur d’interprétation.",
-    "Fausse alerte globale.",
-    "Tout est sous contrôle. Enfin… presque."
-];
-
-const vagueSub = [
-    "La situation reste… interprétable.",
-    "Les données étaient pourtant convaincantes.",
-    "Quelque chose avait l’air de se passer.",
-    "Il faut rester vigilant sans raison précise.",
-    "On préfère ne pas conclure trop vite.",
-    "Le doute est maintenu volontairement."
+    "…ah non.",
+    "…fausse alerte.",
+    "…pas maintenant.",
+    "…on s’est peut-être trompé.",
+    "…finalement non."
 ];
 
 function checkStatus() {
-    const thinking = document.getElementById("thinking");
-    const alert = document.getElementById("alert");
-    const sub = document.getElementById("subtext");
-    const gauge = document.getElementById("gaugeFill");
+    const result = document.getElementById("result");
+    const sub = document.getElementById("sub");
+    const corner = document.getElementById("corner");
 
-    alert.className = "";
-    sub.innerHTML = "";
-    alert.innerHTML = "";
-    gauge.style.width = "0%";
+    // Réponse principale (toujours floue)
+    result.innerHTML = mainAnswers[Math.floor(Math.random() * mainAnswers.length)];
+    sub.innerHTML = subTexts[Math.floor(Math.random() * subTexts.length)];
 
-    thinking.innerHTML = thinkingPhrases[Math.floor(Math.random() * thinkingPhrases.length)];
+    // Reset corner
+    corner.style.display = "none";
 
-    // montée dramatique
-    let level = 0;
-    const interval = setInterval(() => {
-        level += Math.random() * 30;
-        gauge.style.width = Math.min(level, 100) + "%";
+    // 1 chance sur 5 d’avoir un délire
+    if (Math.random() < 0.2) {
+        const msg = cornerMessages[Math.floor(Math.random() * cornerMessages.length)];
 
-        if (level >= 100) {
-            clearInterval(interval);
+        corner.className = msg.type;
+        corner.innerHTML = msg.text;
+        corner.style.display = "block";
 
-            thinking.innerHTML = "";
-
-            // PANIQUE
-            alert.innerHTML = "CRISE MONDIALE IMMINENTE";
-            alert.className = "panic";
-
-            // puis... retournement
-            setTimeout(() => {
-                alert.className = "calm";
-                alert.innerHTML = calmBack[Math.floor(Math.random() * calmBack.length)];
-                sub.innerHTML = vagueSub[Math.floor(Math.random() * vagueSub.length)];
-                gauge.style.width = Math.random() * 40 + "%";
-            }, 1200);
-        }
-    }, 200);
+        // retournement après 2 sec
+        setTimeout(() => {
+            corner.innerHTML += "<br>" + calmBack[Math.floor(Math.random() * calmBack.length)];
+        }, 2000);
+    }
 }
 </script>
 
