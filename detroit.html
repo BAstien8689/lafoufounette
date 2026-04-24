@@ -11,7 +11,7 @@
 body {
     margin: 0;
     font-family: "Courier New", monospace;
-    background: radial-gradient(circle at center, #0a0f1a, #03060d);
+    background: radial-gradient(circle at center, #0a0f1a, #02040a);
     color: #00ff9c;
 }
 
@@ -22,26 +22,25 @@ body {
     padding: 20px;
 }
 
-/* panneau */
+/* panel */
 .panel {
-    background: rgba(0, 20, 10, 0.85);
+    background: rgba(0, 20, 10, 0.9);
     border: 1px solid #00ff9c33;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 25px;
-    box-shadow: 0 0 20px #00ff9c22;
+    box-shadow: 0 0 25px #00ff9c22;
 }
 
-/* TITRES */
-.title-main {
+/* titres */
+.title {
     text-align: center;
-    font-size: 1.5em;
-    letter-spacing: 1px;
+    font-size: 1.4em;
     margin-bottom: 10px;
 }
 
-.title-sub {
+.subtitle {
     text-align: center;
-    font-size: 0.9em;
+    font-size: 0.8em;
     opacity: 0.6;
     margin-bottom: 20px;
 }
@@ -54,23 +53,21 @@ button {
     color: #00ff9c;
     border: 1px solid #00ff9c55;
     cursor: pointer;
-    font-size: 1em;
 }
 
 button:hover {
     background: #003322;
 }
 
-/* réflexion */
+/* thinking */
 #thinking {
     margin-top: 20px;
     font-size: 0.9em;
     opacity: 0.8;
 }
 
-/* barre */
+/* progress */
 .progress {
-    width: 100%;
     height: 8px;
     background: #001a10;
     margin-top: 10px;
@@ -80,10 +77,9 @@ button:hover {
     height: 100%;
     width: 0%;
     background: #00ff9c;
-    transition: width 0.2s;
 }
 
-/* résultat */
+/* result */
 #result {
     margin-top: 25px;
     font-size: 1.8em;
@@ -95,35 +91,52 @@ button:hover {
     opacity: 0.7;
 }
 
-/* alerte */
+/* alert */
 #alert {
     position: fixed;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
     max-width: 400px;
     margin: auto;
     padding: 15px;
     border: 1px solid;
     display: none;
-    font-size: 0.9em;
 }
 
 .red {
-    border-color: red;
     color: red;
-    background: rgba(50,0,0,0.8);
+    border-color: red;
+    background: rgba(50,0,0,0.9);
 }
 
 .green {
-    border-color: #00ff9c;
     color: #00ff9c;
+    border-color: #00ff9c;
     background: rgba(0,40,20,0.9);
+}
+
+/* popup */
+#popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #001a10;
+    border: 1px solid #00ff9c55;
+    padding: 15px;
+    display: none;
+    max-width: 250px;
+    font-size: 0.85em;
+}
+
+#popup button {
+    margin-top: 10px;
+    font-size: 0.8em;
 }
 
 /* responsive */
 @media (max-width: 500px) {
-    .title-main { font-size: 1.2em; }
+    .title { font-size: 1.1em; }
     #result { font-size: 1.4em; }
 }
 </style>
@@ -134,8 +147,8 @@ button:hover {
 <div class="container">
     <div class="panel">
 
-        <div class="title-main">Le détroit d'Ormuz est-il ouvert ?</div>
-        <div class="title-sub">ORBITAL MONITOR // ACCÈS RESTREINT</div>
+        <div class="title">Le détroit d'Ormuz est-il ouvert ?</div>
+        <div class="subtitle">ORBITAL MONITOR // ACCÈS RESTREINT</div>
 
         <button onclick="scan()">Et maintenant ?</button>
 
@@ -147,52 +160,71 @@ button:hover {
 
         <div id="result"></div>
         <div id="sub"></div>
+
     </div>
 </div>
 
 <div id="alert"></div>
 
+<div id="popup">
+    <div id="popupText"></div>
+    <button onclick="closePopup()">ignorer</button>
+</div>
+
 <script>
 const thinking = [
     "Analyse satellite en cours...",
     "Nos experts regardent de près… mais pas trop...",
-    "Lecture des flux maritimes...",
-    "Connexion à une source douteuse...",
-    "Analyse du neurone de Donald Trump...",
+    "Analyse des signaux de fumée...",
+    "Recherche dans la cavité cervicale de Donald Trump : trop de résonance à cause du vide...",
+    "Croisement de données contradictoires...",
     "Scan radar basse précision...",
-    "Croisement de données contradictoires..."
+    "Observation d’un point suspect...",
+    "Simulation d’experts pas d’accord...",
+    "Analyse quantique approximative...",
+    "Lecture de données incompréhensibles..."
 ];
 
 const answers = [
-    "STATUT INCONNU",
-    "DONNÉES INSUFFISANTES",
-    "IMPOSSIBLE À CONFIRMER",
-    "INCERTITUDE GLOBALE",
-    "AUCUNE CONCLUSION",
-    "SIGNAL AMBIGU"
+    "On ne sait pas.",
+    "Peut-être bien que oui.",
+    "Peut-être bien que non.",
+    "Oui… enfin non.",
+    "Ni ouvert. Ni fermé.",
+    "Ça dépend.",
+    "On hésite.",
+    "C’est flou.",
+    "Un peu des deux.",
+    "Globalement incertain."
 ];
 
 const sub = [
-    "Les flux restent difficiles à interpréter.",
-    "Activité détectée sans explication.",
     "Les données ne convergent pas.",
-    "Observation en cours.",
-    "Analyse non concluante."
+    "Les experts hésitent.",
+    "Certains disent oui. D'autres non.",
+    "On observe sans comprendre.",
+    "Les signaux sont contradictoires."
 ];
 
 const alerts = [
-    "⚠️ ALERTE: activité inhabituelle détectée",
-    "⚠️ SIGNAL: mouvement suspect",
-    "⚠️ FLASH: variation critique",
-    "⚠️ ANOMALIE détectée"
+    "🚨 ALERTE: activité inhabituelle détectée",
+    "🚨 BREAKING: mouvement suspect observé",
+    "🚨 FLASH: tension en hausse"
 ];
 
 const calm = [
-    "Correction: on s’est emballé.",
-    "Analyse révisée: rien de confirmé.",
-    "C’était probablement une fusée.",
-    "Fausse alerte.",
-    "Interprétation erronée."
+    "On s’est emballé trop vite.",
+    "C’était juste une fusée.",
+    "Fausse alerte finalement.",
+    "Rien de grave en fait."
+];
+
+const popupTexts = [
+    "Vous êtes sûr de ne pas avoir autre chose à faire ?",
+    "Surveiller le détroit… encore ?",
+    "Peut-être prendre une pause ?",
+    "C’est important pour vous ça ?",
+    "Personne ne vous regarde, vous pouvez arrêter."
 ];
 
 function scan() {
@@ -212,7 +244,7 @@ function scan() {
     let p = 0;
 
     const interval = setInterval(() => {
-        p += Math.random() * 6;
+        p += Math.random() * 5;
         b.style.width = p + "%";
 
         if (p >= 100) {
@@ -232,8 +264,25 @@ function scan() {
                     a.innerHTML += "<br>" + calm[Math.floor(Math.random()*calm.length)];
                 }, 2500);
             }
+
+            // popup aléatoire
+            if (Math.random() < 0.25) {
+                showPopup();
+            }
         }
     }, 200);
+}
+
+function showPopup() {
+    const popup = document.getElementById("popup");
+    const text = document.getElementById("popupText");
+
+    text.innerHTML = popupTexts[Math.floor(Math.random()*popupTexts.length)];
+    popup.style.display = "block";
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
 }
 </script>
 
